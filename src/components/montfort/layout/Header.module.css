@@ -1,0 +1,354 @@
+.header {
+  position: fixed;
+  top: 2rem;
+  z-index: 10;
+  width: 100%;
+  user-select: none;
+  transition: opacity 0.4s linear;
+}
+
+@media (min-width: 64em) {
+  .header {
+    top: 5rem;
+  }
+}
+
+.hidden {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.container {
+  width: max(200px, 100% - 32px);
+  margin: 0 auto;
+}
+
+@media (min-width: 48em) {
+  .container {
+    width: max(200px, 100% - 64px);
+  }
+}
+
+@media (min-width: 64em) {
+  .container {
+    display: grid;
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+    column-gap: 20px;
+    max-width: 1920px;
+  }
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 64em) {
+  .nav {
+    grid-column: 2 / 24;
+  }
+}
+
+@media (min-width: 80em) {
+  .nav {
+    grid-column: 3 / 23;
+  }
+}
+
+.links {
+  position: relative;
+}
+
+.links ul {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: 100%;
+}
+
+.links li {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+
+.link {
+  position: absolute;
+  top: 50%;
+  left: var(--header-padding);
+  font-family: "Century Gothic", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.03rem;
+  color: #2d628c;
+  text-transform: uppercase;
+  text-wrap: nowrap;
+  white-space: nowrap;
+  pointer-events: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-50%);
+  transition:
+    opacity 0.4s linear,
+    color 0.4s linear;
+}
+
+.link.active {
+  opacity: 1;
+}
+
+@media (min-width: 64em) {
+  .link {
+    position: relative;
+    top: unset;
+    left: unset;
+    width: 100%;
+    height: 100%;
+    padding: 2.25rem 0.75rem 2rem;
+    pointer-events: auto;
+    opacity: 0.4;
+    transform: none;
+  }
+  .link.active {
+    opacity: 1;
+  }
+  .links li:first-of-type .link {
+    padding-left: var(--header-padding);
+  }
+  .links li:last-of-type .link {
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 105em) {
+  .link {
+    padding: 2.25rem 1.625rem 2rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    opacity: 1 !important;
+  }
+}
+
+.navbar {
+  position: absolute;
+  bottom: -2.5rem;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  visibility: hidden;
+  background: #2d628c;
+  transition:
+    left 0.5s cubic-bezier(0.4, 0, 0.1, 1),
+    width 0.5s cubic-bezier(0.4, 0, 0.1, 1),
+    background 0.4s linear,
+    opacity 0.4s linear;
+}
+
+@media (min-width: 64em) {
+  .navbar {
+    bottom: 0;
+    visibility: visible;
+  }
+}
+
+.right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  height: 100%;
+}
+
+.news {
+  position: relative;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+}
+
+.news::before {
+  position: absolute;
+  bottom: 1.4375rem;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  content: "";
+  background: #2d628c;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.1, 1);
+  transform: scale3d(0, 1, 1);
+  transform-origin: right center;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .news:hover::before {
+    transform: scale3d(1, 1, 1);
+    transform-origin: left center;
+  }
+}
+
+.news p {
+  display: none;
+  font-family: "Century Gothic", sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.025rem;
+  color: #2d628c;
+  text-transform: uppercase;
+  transition: color 0.4s linear;
+}
+
+@media (min-width: 64em) {
+  .news p {
+    display: block;
+  }
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  padding: 0.1875rem 0.25rem;
+  background: #2d628c;
+  border-radius: 0.5rem;
+  transition:
+    background 0.4s linear,
+    opacity 0.4s linear;
+}
+
+.counter span {
+  font-family: "Century Gothic", sans-serif;
+  font-size: 0.5rem;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 0.025rem;
+  color: #fff;
+  text-transform: uppercase;
+  transition: color 0.4s linear;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 100%;
+  padding: 1.5625rem var(--header-padding) 1.5625rem 0;
+}
+
+@media (min-width: 64em) {
+  .menu {
+    padding: 0 var(--header-padding) 0 0;
+  }
+}
+
+.menu p {
+  position: relative;
+  width: 4rem;
+  overflow: hidden;
+  font-family: "Century Gothic", sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.025rem;
+  color: #2d628c;
+  text-align: left;
+  text-transform: uppercase;
+  transition: color 0.4s linear;
+}
+
+.menu p span {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.1, 1);
+}
+
+.menu p span:last-of-type {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .menu:hover p span {
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.dots {
+  position: relative;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #2d628c;
+  border-radius: 50%;
+  transition:
+    top 0.6s cubic-bezier(0.32, 0.94, 0.6, 1),
+    left 0.6s cubic-bezier(0.32, 0.94, 0.6, 1),
+    transform 0.6s cubic-bezier(0.32, 0.94, 0.6, 1),
+    background 0.4s linear;
+}
+
+.dot:nth-child(1) {
+  top: 50%;
+  left: 0;
+  transform: translate3d(-50%, -50%, 0);
+}
+.dot:nth-child(2) {
+  top: 50%;
+  left: 0;
+  transform: translate3d(-50%, -50%, 0) scale3d(0, 0, 1);
+}
+.dot:nth-child(3) {
+  top: 50%;
+  left: 100%;
+  transform: translate3d(-50%, -50%, 0);
+}
+.dot:nth-child(4) {
+  top: 50%;
+  left: 100%;
+  transform: translate3d(-50%, -50%, 0) scale3d(0, 0, 1);
+}
+
+.close .dot:nth-child(2) {
+  top: 0;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) scale3d(1, 1, 1);
+}
+.close .dot:nth-child(4) {
+  top: 100%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) scale3d(1, 1, 1);
+}
+
+/* Light ink on dark backdrops. */
+.header[data-theme="light"] .link,
+.header[data-theme="light"] .news p,
+.header[data-theme="light"] .menu p {
+  color: #fff;
+}
+.header[data-theme="light"] .navbar,
+.header[data-theme="light"] .news::before,
+.header[data-theme="light"] .dot {
+  background: #fff;
+}
+.header[data-theme="light"] .counter {
+  background: #fff;
+}
+.header[data-theme="light"] .counter span {
+  color: #2d628c;
+}

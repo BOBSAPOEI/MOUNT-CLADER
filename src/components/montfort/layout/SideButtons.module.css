@@ -1,0 +1,83 @@
+.container {
+  position: fixed;
+  bottom: 2rem;
+  z-index: 5;
+  width: 100%;
+  pointer-events: none;
+}
+
+@media (min-width: 48em) {
+  .container {
+    bottom: 2.75rem;
+  }
+}
+
+@media (min-width: 64em) {
+  .container {
+    z-index: 50;
+  }
+}
+
+@media (min-width: 105em) {
+  .container {
+    bottom: 6.5rem;
+  }
+}
+
+.wrapper {
+  width: max(200px, 100% - 32px);
+  margin: 0 auto;
+}
+
+@media (min-width: 48em) {
+  .wrapper {
+    width: max(200px, 100% - 64px);
+  }
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-right: var(--header-padding);
+  margin-left: auto;
+  width: fit-content;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  color: #2d628c;
+  pointer-events: all;
+  cursor: pointer;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  transition:
+    opacity 0.4s linear,
+    color 0.4s linear,
+    border-color 0.4s linear;
+}
+
+.container[data-theme="light"] .button {
+  color: #fff;
+}
+
+.top {
+  opacity: 0;
+}
+
+.top.visible {
+  opacity: 1;
+}
+
+.top svg {
+  height: 12px;
+}
+
+.sound canvas {
+  width: 24px;
+  height: 24px;
+}

@@ -1,0 +1,46 @@
+.section {
+  position: relative;
+  padding: 5rem 0;
+}
+
+.section::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  content: "";
+  background-color: #a9bfd24d;
+}
+
+@media (min-width: 64em) {
+  .section {
+    padding-top: 0;
+    padding-bottom: 15rem;
+  }
+  .section::before {
+    display: none;
+  }
+}
+
+.title {
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 64em) {
+  .title {
+    margin-top: 15rem;
+    margin-bottom: 6.25rem;
+  }
+}
+
+.description {
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 64em) {
+  .description {
+    margin-bottom: 0;
+  }
+}

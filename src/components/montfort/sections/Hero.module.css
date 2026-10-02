@@ -1,0 +1,139 @@
+.hero {
+  width: 100%;
+  height: calc(150 * var(--lvh));
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100 * var(--svh));
+}
+
+@media (min-width: 64em) {
+  .inner {
+    display: grid;
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+    column-gap: 20px;
+    width: max(200px, 100% - 64px);
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+}
+
+.logoMobile {
+  width: min(75vw, 500px);
+  height: auto;
+  color: #2d628c;
+}
+
+.logoDesktop {
+  display: none;
+  color: #2d628c;
+}
+
+@media (min-width: 64em) {
+  .logoMobile {
+    display: none;
+  }
+  .logoDesktop {
+    display: block;
+    grid-column: 2 / -1;
+    width: auto;
+    max-width: 75%;
+    height: min(80px, 4.2vw);
+    padding-left: var(--header-padding);
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 80em) {
+  .logoDesktop {
+    grid-column: 3 / -1;
+  }
+}
+
+/* Mark and wordmark paths fade in one after another once the page has loaded. */
+.logoDesktop path,
+.logoMobile path {
+  opacity: 0;
+  animation: logo-in 1.1s cubic-bezier(0.4, 0, 0.1, 1) forwards;
+  animation-delay: calc(0.25s + var(--i, 0) * 9ms);
+}
+
+@keyframes logo-in {
+  to {
+    opacity: 1;
+  }
+}
+
+.cta {
+  position: absolute;
+  bottom: 1.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: #2d628c;
+  opacity: 0;
+  animation: logo-in 1s linear 1.2s forwards;
+}
+
+@media (max-width: 64em) {
+  .cta {
+    left: calc(1rem + var(--header-padding));
+  }
+}
+
+@media (min-width: 48em) {
+  .cta {
+    bottom: 2.75rem;
+  }
+}
+
+@media (min-width: 105em) {
+  .cta {
+    bottom: 6.5rem;
+  }
+}
+
+@media (min-width: 64em) {
+  .cta {
+    grid-column: 2 / -1;
+    padding-left: var(--header-padding);
+  }
+}
+
+@media (min-width: 80em) {
+  .cta {
+    grid-column: 3 / -1;
+  }
+}
+
+.ctaMobile {
+  display: flex;
+  gap: 1.5625rem;
+  align-items: center;
+  height: 24px;
+}
+
+.ctaDesktop {
+  height: 24px;
+}
+
+@media (min-width: 64em) {
+  .ctaMobile {
+    display: none;
+  }
+}
+
+@media (max-width: 64em) {
+  .ctaDesktop {
+    display: none;
+  }
+}
+
+.cta span {
+  position: relative;
+  text-transform: uppercase;
+}

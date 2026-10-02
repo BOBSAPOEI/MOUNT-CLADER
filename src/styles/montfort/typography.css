@@ -1,0 +1,95 @@
+/* Type scale. Headings are Century Gothic uppercase-by-utility; the hero titles use Josefin Sans. */
+@layer components {
+  .fs-h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    letter-spacing: 0.25rem;
+  }
+  .fs-h2 {
+    font-size: 2.25rem;
+    line-height: 1.4;
+    letter-spacing: 0.09rem;
+  }
+  .fs-h3 {
+    font-size: 1.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.14rem;
+  }
+  .fs-h4 {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.03rem;
+  }
+  .fs-h5 {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .fs-s1 {
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+  .fs-s2 {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    letter-spacing: 0.05rem;
+  }
+  .fs-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0.08rem;
+  }
+  .fs-body-s {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    letter-spacing: 0.06rem;
+  }
+  .fs-cta {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    letter-spacing: 0.025rem;
+  }
+  .fs-cta-s {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    letter-spacing: 0.03rem;
+  }
+  .fs-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.0375rem;
+  }
+  .fs-numerals {
+    font-size: 0.5rem;
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: 0.025rem;
+  }
+
+  @media (min-width: 64em) {
+    .fs-h1 {
+      font-family: "Josefin Sans", sans-serif;
+      font-size: 5rem;
+      font-style: normal;
+      font-weight: 300;
+      letter-spacing: 0.5rem;
+      text-transform: none;
+    }
+    .fs-h2 {
+      font-size: 3.125rem;
+      letter-spacing: 0.14rem;
+    }
+    .fs-h3 {
+      font-size: 2.5rem;
+      letter-spacing: 0.1rem;
+    }
+    .fs-h4 {
+      font-size: 1.25rem;
+      letter-spacing: 0.05rem;
+    }
+    .fs-s1 {
+      font-size: 1.5rem;
+      letter-spacing: 0.03rem;
+    }
+  }
+}

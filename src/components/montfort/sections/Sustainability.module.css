@@ -1,0 +1,59 @@
+.section {
+  padding-top: 10.625rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 64em) {
+  .section {
+    padding-top: 21.25rem;
+    padding-bottom: 15rem;
+  }
+}
+
+.lead {
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 64em) {
+  .lead {
+    margin-bottom: 15rem;
+  }
+}
+
+.title {
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 64em) {
+  .title {
+    margin-top: 15rem;
+    margin-bottom: 6.25rem;
+  }
+}
+
+.description {
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 64em) {
+  .description {
+    margin-bottom: 0;
+  }
+}
+
+.paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+@media (min-width: 64em) {
+  .paragraphs {
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  .paragraphs p {
+    width: calc(50% - 2.5rem);
+  }
+}

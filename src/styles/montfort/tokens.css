@@ -1,0 +1,32 @@
+/* Design tokens: colour palette, spacing variables and shared viewport units. */
+:root {
+  --mf-navy: #2d628c;
+  --mf-navy-2: #81a0bb;
+  --mf-navy-3: #a9bfd2;
+  --mf-navy-4: #d1dde8;
+  --mf-sky: #8cb4d5;
+  --mf-azure: #008ae0;
+
+  --header-padding: 1rem;
+  --lvh: 1vh;
+  --svh: 1vh;
+}
+
+@supports (height: 100lvh) {
+  :root {
+    --lvh: 1lvh;
+    --svh: 1svh;
+  }
+}
+
+@media (min-width: 64em) {
+  :root {
+    --header-padding: 2rem;
+  }
+}
+
+@media (min-width: 80em) {
+  :root {
+    --header-padding: 3rem;
+  }
+}

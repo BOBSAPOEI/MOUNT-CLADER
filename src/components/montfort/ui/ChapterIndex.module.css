@@ -1,0 +1,44 @@
+.index {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: #fff;
+}
+
+.index::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  content: "";
+  border: solid 2px #a9bfd2;
+  transform: translate3d(-1px, -1px, 0) rotate3d(0, 0, 1, 45deg);
+}
+
+@media (min-width: 64em) {
+  .index {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+  }
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  margin-top: 2.375rem;
+  background-color: #a9bfd24d;
+  transform-origin: left center;
+}
+
+@media (max-width: 63.99em) {
+  .line {
+    display: none;
+  }
+}

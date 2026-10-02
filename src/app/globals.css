@@ -4,6 +4,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Montfort layout breakpoints (tablet / desktop / medium-large / large) and the "below desktop" variant. */
+@theme {
+  --breakpoint-tb: 48rem;
+  --breakpoint-dk: 64rem;
+  --breakpoint-ml: 80rem;
+  --breakpoint-wide: 105rem;
+  --color-navy: #2d628c;
+  --color-navy-2: #81a0bb;
+  --color-navy-3: #a9bfd2;
+  --color-navy-4: #d1dde8;
+  --color-sky: #8cb4d5;
+}
+@custom-variant mb (@media (max-width: 63.99em));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

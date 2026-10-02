@@ -1,0 +1,36 @@
+/* 4-column grid below 64em, 24-column grid from 64em up (same breakpoints as the original design). */
+@layer components {
+  .mf-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 10px;
+    width: max(200px, 100% - 64px);
+    margin: 0 auto;
+  }
+
+  @media (min-width: 64em) {
+    .mf-grid {
+      grid-template-columns: repeat(24, minmax(0, 1fr));
+      column-gap: 20px;
+      max-width: 1920px;
+      margin: auto;
+    }
+  }
+
+  /* Same grid without side margins (full-bleed rows that still snap to the columns). */
+  .mf-grid-bleed {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 3.75rem;
+  }
+
+  @media (min-width: 64em) {
+    .mf-grid-bleed {
+      grid-template-columns: repeat(24, minmax(0, 1fr));
+      column-gap: 20px;
+      width: 100%;
+      max-width: 1920px;
+      margin: auto;
+    }
+  }
+}

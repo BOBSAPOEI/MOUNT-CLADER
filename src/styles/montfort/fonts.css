@@ -1,0 +1,50 @@
+/* Montfort brand fonts (self-hosted). */
+@font-face {
+  font-family: "Century Gothic";
+  src: url(/montfort/fonts/CenturyGothic.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Century Gothic";
+  src: url(/montfort/fonts/CenturyGothic-Bold.woff2) format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Century Gothic";
+  src: url(/montfort/fonts/CenturyGothic-Italic.woff2) format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Century Gothic";
+  src: url(/montfort/fonts/CenturyGothic-BoldItalic.woff2) format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Josefin Sans";
+  src: url(/montfort/fonts/JosefinSans-ExtraLight.woff2) format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Josefin Sans";
+  src: url(/montfort/fonts/JosefinSans-Light.woff2) format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Josefin Sans";
+  src: url(/montfort/fonts/JosefinSans-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

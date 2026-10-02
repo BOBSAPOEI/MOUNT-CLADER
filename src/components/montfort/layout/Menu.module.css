@@ -1,0 +1,237 @@
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.5s linear,
+    visibility 0s linear 0.5s;
+}
+
+.menu.active {
+  pointer-events: all;
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, #d8d8d8 -45%, #f6f6f6 25%);
+}
+
+.gridNav {
+  align-items: center;
+  height: 100%;
+}
+
+.gridTerms {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  transform: translate3d(-50%, 0, 0);
+}
+
+@media (min-width: 48em) {
+  .gridTerms {
+    bottom: 2.75rem;
+  }
+}
+
+@media (min-width: 105em) {
+  .gridTerms {
+    bottom: 6.5rem;
+  }
+}
+
+.nav ul {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (min-width: 48em) {
+  .nav ul {
+    gap: 0.75rem;
+  }
+}
+
+.nav li {
+  width: fit-content;
+}
+
+.navLink {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #a9bfd2;
+  transition: color 0.4s linear;
+}
+
+@media (min-width: 48em) {
+  .navLink {
+    font-size: 1.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.14rem;
+    text-transform: uppercase;
+  }
+}
+
+@media (min-width: 64em) {
+  .navLink {
+    font-size: 2.5rem;
+    letter-spacing: 0.1rem;
+  }
+}
+
+.navLink.current {
+  color: #2d628c;
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #2d628c;
+  background: #fff;
+  border-radius: 50%;
+  transition:
+    background 0.4s linear,
+    color 0.4s linear,
+    transform 0.4s cubic-bezier(0.4, 0, 0.1, 1);
+  transform: scale3d(0, 0, 1);
+}
+
+.circle svg {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.1, 1);
+  transform: translate3d(-75%, 0, 0);
+}
+
+@media (max-width: 48em) {
+  .circle {
+    display: none;
+  }
+}
+
+.text {
+  position: relative;
+  padding: 1.5rem 0;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.1, 1);
+  transform: translate3d(-4.5rem, 0, 0);
+}
+
+.text span {
+  text-wrap: nowrap;
+}
+
+.text::before {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  content: "";
+  background: #d1dde8;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.1, 1);
+  transform: scale3d(0, 1, 1);
+  transform-origin: left center;
+}
+
+.navLink.current .text::before {
+  transform: scale3d(1, 1, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navLink:hover {
+    color: #2d628c;
+  }
+  .navLink:hover:not(.current) .circle {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  .navLink:hover:not(.current) .circle svg {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.1, 1) 0.1s;
+    transform: translateZ(0);
+  }
+  .navLink:hover:not(.current) .text {
+    transform: translateZ(0);
+  }
+  .navLink:hover:not(.current) .text::before {
+    transform: scale3d(1, 1, 1);
+    transform-origin: right center;
+  }
+}
+
+.terms {
+  margin-left: auto;
+}
+
+@media (min-width: 64em) {
+  .terms {
+    height: 24px;
+  }
+}
+
+.terms ul {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1.75rem;
+  align-items: flex-end;
+}
+
+@media (min-width: 48em) {
+  .terms ul {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 64em) {
+  .terms ul {
+    justify-content: flex-start;
+  }
+}
+
+.terms li {
+  position: relative;
+  overflow: hidden;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.025rem;
+  color: #2d628c;
+  text-transform: uppercase;
+}
+
+.terms li span {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.1, 1);
+}
+
+.terms li span:last-of-type {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .terms li:hover span {
+    transform: translate3d(0, -100%, 0);
+  }
+}

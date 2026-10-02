@@ -1,0 +1,22 @@
+.fade {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 0.9s cubic-bezier(0.4, 0, 0.1, 1) var(--delay, 0s),
+    transform 0.9s cubic-bezier(0.4, 0, 0.1, 1) var(--delay, 0s);
+}
+
+.fade.in {
+  opacity: 1;
+  transform: none;
+}
+
+.line {
+  transform: scale3d(0, 1, 1);
+  transform-origin: left center;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.1, 1) var(--delay, 0s);
+}
+
+.line.in {
+  transform: scale3d(1, 1, 1);
+}

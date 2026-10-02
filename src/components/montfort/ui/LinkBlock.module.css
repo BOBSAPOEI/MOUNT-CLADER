@@ -1,0 +1,130 @@
+.link {
+  position: relative;
+  display: flex;
+  gap: 1.0625rem;
+  align-items: center;
+  width: fit-content;
+  padding-bottom: 1.25rem;
+  font-family: "Century Gothic", sans-serif;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.21rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.4s linear;
+  transform-origin: right center;
+}
+
+@media (min-width: 64em) {
+  .link {
+    padding-bottom: 1.75rem;
+  }
+}
+
+.link::before,
+.link::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  content: "";
+  border-radius: 2px;
+}
+
+.link::before {
+  background: #d1dde8;
+}
+
+.link::after {
+  background: #2d628c;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.1, 1);
+  transform: scale3d(0, 1, 1);
+  transform-origin: right center;
+}
+
+.navy {
+  color: #2d628c;
+}
+
+.white {
+  color: #fff;
+}
+
+.label,
+.wrapper {
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.1, 1);
+}
+
+.wrapperLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(-2.5rem, 0, 0);
+}
+
+.arrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #2d628c;
+  background: #fff;
+  border-radius: 50%;
+  transition:
+    background 0.4s linear,
+    color 0.4s linear,
+    transform 0.7s cubic-bezier(0.4, 0, 0.1, 1);
+}
+
+.arrow svg {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.1, 1);
+}
+
+.arrowLeft {
+  position: absolute;
+  left: 0;
+  transform: scale3d(0, 0, 1);
+}
+
+.arrowLeft svg {
+  transform: translate3d(-50%, 0, 0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover::after {
+    transform: scale3d(1, 1, 1);
+    transform-origin: left center;
+  }
+  .link:hover .wrapper {
+    transform: scale3d(1, 1, 1);
+  }
+  .link:hover .wrapperLeft {
+    transform: translateZ(0);
+  }
+  .link:hover .wrapperRight {
+    transform: translate3d(2.5rem, 0, 0);
+  }
+  .link:hover .arrow svg {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.1, 1) 0.1s;
+  }
+  .link:hover .arrowLeft {
+    transform: scale3d(1, 1, 1);
+  }
+  .link:hover .arrowLeft svg {
+    transform: translateZ(0);
+  }
+  .link:hover .arrowRight {
+    transform: scale3d(0, 0, 1);
+  }
+  .link:hover .arrowRight svg {
+    transform: translate3d(50%, 0, 0);
+  }
+  .link:hover .label {
+    transform: translate3d(3.5625rem, 0, 0);
+  }
+}
