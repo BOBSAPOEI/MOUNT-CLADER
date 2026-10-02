@@ -1,4 +1,7 @@
-/* Type scale. Headings are Century Gothic uppercase-by-utility; the hero titles use Josefin Sans. */
+/*
+ * Type scale. Headings are Century Gothic uppercase-by-utility; the hero titles use Josefin Sans.
+ * Tuned a touch lighter and airier than the source site: wider tracking on headings, more leading on copy.
+ */
 @layer components {
   .fs-h1 {
     font-size: 2.5rem;
@@ -7,8 +10,8 @@
   }
   .fs-h2 {
     font-size: 2.25rem;
-    line-height: 1.4;
-    letter-spacing: 0.09rem;
+    line-height: 1.45;
+    letter-spacing: 0.12rem;
   }
   .fs-h3 {
     font-size: 1.75rem;
@@ -26,7 +29,7 @@
   }
   .fs-s1 {
     font-size: 1.25rem;
-    line-height: 1.6;
+    line-height: 1.7;
   }
   .fs-s2 {
     font-size: 1.25rem;
@@ -35,12 +38,12 @@
   }
   .fs-body {
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.75;
     letter-spacing: 0.08rem;
   }
   .fs-body-s {
     font-size: 0.75rem;
-    line-height: 1.6;
+    line-height: 1.75;
     letter-spacing: 0.06rem;
   }
   .fs-cta {
@@ -76,12 +79,12 @@
       text-transform: none;
     }
     .fs-h2 {
-      font-size: 3.125rem;
-      letter-spacing: 0.14rem;
+      font-size: 3rem;
+      letter-spacing: 0.2rem;
     }
     .fs-h3 {
-      font-size: 2.5rem;
-      letter-spacing: 0.1rem;
+      font-size: 2.25rem;
+      letter-spacing: 0.12rem;
     }
     .fs-h4 {
       font-size: 1.25rem;

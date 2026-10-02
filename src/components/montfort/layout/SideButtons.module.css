@@ -70,8 +70,8 @@
     border-color 0.4s linear;
 }
 
-/* Only the sound waveform follows the theme; the scroll-top arrow keeps its fixed #2d628c fill. */
-.container[data-theme="light"] .sound {
+/* White ink over dark backdrops. */
+.container[data-theme="light"] .button {
   color: #fff;
 }
 
@@ -85,9 +85,4 @@
 
 .top svg {
   height: 12px;
-}
-
-.sound canvas {
-  width: 24px;
-  height: 24px;
 }

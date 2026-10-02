@@ -8,12 +8,8 @@ export const DIVISIONS = [
 ] as const;
 
 export const NAV = [{ href: "/", name: "Calder Group" }, ...DIVISIONS.map((d) => ({ href: d.href, name: d.name }))];
-export const TERMS = [
-  { href: "/contact/", name: "Contact" },
-  { href: "/#Sustainability", name: "ESG" },
-  { href: "/privacy-policy/", name: "Privacy policy" },
-  { href: "/terms-of-use/", name: "Terms of use" },
-];
+/** Secondary links (footer, menu). Only pages that exist in this site are listed. */
+export const TERMS = [{ href: "/#Sustainability", name: "ESG" }];
 
 export const OFFICES = [
   { name: "Geneva, Switzerland", address: " 3rd & 4th floor\nRue du Mont-Blanc 14\u2028\n1201 Geneva, Switzerland ", phone: "+41 227415900", tel: "+41227415900", email: "gva.reception@mont-fort.com" },

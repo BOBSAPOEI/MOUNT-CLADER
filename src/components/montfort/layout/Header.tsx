@@ -71,12 +71,6 @@ export function Header({ menuOpen, onToggleMenu, active = 0, theme: pageTheme }:
             <div className={styles.navbar} style={{ left: bar.left, width: bar.width }} />
           </div>
           <div className={styles.right}>
-            <a href="/news/" className={styles.news} data-cursor="clickable">
-              <p>News</p>
-              <div className={styles.counter}>
-                <span>27</span>
-              </div>
-            </a>
             <button className={`${styles.menu} ${menuOpen ? styles.close : ""}`} onClick={onToggleMenu} aria-expanded={menuOpen} data-cursor="clickable">
               <p>
                 <span>{menuOpen ? "Close" : "Menu"}</span>
