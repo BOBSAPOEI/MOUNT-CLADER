@@ -1,10 +1,15 @@
 import { STORM_MASK_GLSL } from "./sky/storm";
 
-/** Snowy mountain: triplanar rock relief, slope-based snow, soft light and distance haze. */
+/**
+ * Snowy mountain: the baked homepage lightmap gives the soft snow shading, a triplanar rock normal
+ * adds the fine ridges, then distance haze and the cloud deck soften it into the sky.
+ */
 export const MOUNTAIN_VERT = /* glsl */ `
 varying vec3 vPosW;
 varying vec3 vNormalW;
+varying vec2 vUv;
 void main() {
+  vUv = uv;
   vec4 w = modelMatrix * vec4(position, 1.0);
   vPosW = w.xyz;
   vNormalW = normalize(mat3(modelMatrix) * normal);
@@ -13,11 +18,12 @@ void main() {
 
 export const MOUNTAIN_FRAG = /* glsl */ `
 precision highp float;
-uniform sampler2D tRockNormal, tNoise;
-uniform vec3 uSun, uHaze, uShadow, uCloud;
+uniform sampler2D tLightmap, tRockNormal, tRockDiffuse, tNoise;
+uniform vec3 uSun, uHaze, uCloud, uLit, uShade;
 uniform float uHazeNear, uHazeFar, uDetail, uScale, uOpacity, uFogLow, uFogHigh;
 varying vec3 vPosW;
 varying vec3 vNormalW;
+varying vec2 vUv;
 
 // Whiteout-blended triplanar normal mapping.
 vec3 triplanar(vec3 p, vec3 n, float s) {
@@ -32,24 +38,36 @@ vec3 triplanar(vec3 p, vec3 n, float s) {
   return normalize(nx.zyx * w.x + ny.xzy * w.y + nz.xyz * w.z);
 }
 
+// Triplanar luminance of the rock photo, used for the streaks where rock shows through the snow.
+float rockLum(vec3 p, vec3 n, float s) {
+  vec3 w = pow(abs(n), vec3(4.0));
+  w /= (w.x + w.y + w.z);
+  vec3 c = texture2D(tRockDiffuse, p.zy * s).rgb * w.x + texture2D(tRockDiffuse, p.xz * s).rgb * w.y + texture2D(tRockDiffuse, p.xy * s).rgb * w.z;
+  return dot(c, vec3(0.3, 0.59, 0.11));
+}
+
 void main() {
   vec3 N = normalize(vNormalW);
+  vec3 L = normalize(uSun);
+  float baked = texture2D(tLightmap, vec2(vUv.x, 1.0 - vUv.y)).r;
+  float light = smoothstep(0.08, 0.26, baked);
+
+  // Fine relief: only the difference the detail normal makes to the lighting is added.
   vec3 Nd = triplanar(vPosW, N, uScale);
-  float broad = texture2D(tNoise, vPosW.xz * 0.011).r;
-  float fine = texture2D(tNoise, vPosW.xz * 0.06 + vPosW.y * 0.01).r;
+  light += (dot(Nd, L) - dot(N, L)) * 0.3;
+  float fine = texture2D(tNoise, vPosW.xz * 0.05).r;
+  light += (fine - 0.5) * 0.04;
 
-  float slope = Nd.y;
-  float snow = smoothstep(0.30, 0.68, slope * 0.85 + broad * 0.35 + N.y * 0.2);
-  vec3 snowCol = vec3(0.955, 0.978, 1.0);
-  vec3 rockCol = mix(vec3(0.46, 0.57, 0.67), vec3(0.66, 0.74, 0.80), broad);
-  vec3 albedo = mix(rockCol, snowCol, snow) * (0.93 + 0.07 * fine);
+  vec3 col = mix(uShade, uLit, clamp(light, 0.0, 1.0));
 
-  float lit = clamp(dot(Nd, normalize(uSun)) * 0.9 + 0.25, 0.0, 1.0);
-  vec3 col = albedo * mix(uShadow, vec3(1.04, 1.04, 1.03), lit);
-  col *= 0.82 + 0.18 * smoothstep(-0.3, 0.7, Nd.y);
+  // Steep faces and gullies show grey-blue rock streaks through the snow.
+  float steep = 1.0 - smoothstep(0.5, 0.82, Nd.y + (fine - 0.5) * 0.3);
+  float rock = rockLum(vPosW, N, uScale * 0.6);
+  float exposed = steep * smoothstep(0.18, 0.42, rock);
+  col = mix(col, col * vec3(0.8, 0.86, 0.9), exposed * 0.75);
 
   float dist = distance(vPosW, cameraPosition);
-  col = mix(col, uHaze, smoothstep(uHazeNear, uHazeFar, dist));
+  col = mix(col, uHaze, smoothstep(uHazeNear, uHazeFar, dist) * 0.85);
   // Everything below the cloud deck dissolves into it; only the summits stay crisp.
   float deck = 1.0 - smoothstep(uFogLow, uFogHigh, vPosW.y);
   col = mix(col, uCloud, deck);
@@ -79,7 +97,7 @@ export const PEAK_FRAG = /* glsl */ `
 precision highp float;
 uniform sampler2D tMap;
 uniform vec3 uSun, uHaze, uShadow, uCloud;
-uniform float uHazeNear, uHazeFar, uOpacity, uFogLow, uFogHigh;
+uniform float uHazeNear, uHazeFar, uOpacity, uFogLow, uFogHigh, uVeil, uBaseFade;
 varying vec2 vUv;
 varying vec3 vPosW;
 varying vec3 vNormalW;
@@ -88,12 +106,14 @@ void main() {
   vec3 albedo = texture2D(tMap, vUv).rgb;
   vec3 N = normalize(vNormalW);
   float lit = clamp(dot(N, normalize(uSun)) * 0.5 + 0.5, 0.0, 1.0);
-  vec3 col = albedo * mix(uShadow, vec3(1.04), lit) * vec3(0.98, 1.0, 1.03);
+  vec3 col = albedo * mix(uShadow, vec3(1.0), lit) * vec3(0.93, 0.985, 1.02);
   float dist = distance(vPosW, cameraPosition);
   col = mix(col, uHaze, smoothstep(uHazeNear, uHazeFar, dist));
   float deck = 1.0 - smoothstep(uFogLow, uFogHigh, vPosW.y);
-  col = mix(col, uCloud, deck);
-  gl_FragColor = vec4(col, uOpacity);
+  col = mix(col, uCloud, max(deck, uVeil));
+  // A peak drawn over the cloud decks dissolves its base into them instead of ending in a cut.
+  float base = mix(1.0, 1.0 - deck, uBaseFade);
+  gl_FragColor = vec4(col, uOpacity * base);
 }`;
 
 export const CLOUD_VERT = /* glsl */ `
@@ -121,31 +141,29 @@ varying vec2 vUv;
 varying float vSeed;
 ${STORM_MASK_GLSL}
 
-float fbm(vec2 p) {
-  float s = texture2D(tPerlin, p).r * 0.62;
-  s += texture2D(tPerlin, p * 2.07 + 0.31).r * 0.38;
-  return s;
-}
-
 void main() {
   vec2 uv = vUv;
-  vec2 q = uv * uTile + vSeed;
-  float t = uTime * 0.006;
-  float n1 = fbm(q * 0.45 + vec2(t, 0.0));
-  float n2 = fbm(q * 1.1 + vec2(-t * 0.8, 0.37));
-  float n3 = texture2D(tNoise, q * 3.0 + vec2(t * 2.0, 0.0)).r;
+  // Plane-space coordinates: x runs along the bank, y up it. Only low frequencies are used so the
+  // banks read as soft billows rather than spray.
+  vec2 q = vec2(uv.x * uTile.x, uv.y * uTile.y) * 0.25 + vSeed;
+  float t = uTime * 0.004;
+  float n1 = texture2D(tPerlin, q * 0.45 + vec2(t, 0.0)).r;
+  float n2 = texture2D(tPerlin, q * 0.85 + vec2(-t * 0.7, 0.37)).r;
+  float n3 = texture2D(tPerlin, q * 1.5 + vec2(t * 1.3, 0.71)).r;
 
-  // Cumulus-style density: grows with depth below the nominal top, lumped by low-frequency noise.
+  // Density grows below the bank's nominal top; billows lift and dent that top.
   float h = uEdge - uv.y;
-  float dens = h * 2.4 + (n1 - 0.5) * 1.5 + (n2 - 0.5) * 0.7 + (n3 - 0.5) * 0.18;
-  float alpha = smoothstep(0.0, 0.5, dens);
-  alpha *= smoothstep(0.0, 0.16, uv.x) * smoothstep(1.0, 0.84, uv.x) * smoothstep(0.0, 0.12, uv.y);
+  float dens = h * 1.9 + (n1 - 0.5) * 1.0 + (n2 - 0.5) * 0.35 + (n3 - 0.5) * 0.06;
+  float alpha = smoothstep(-0.02, 0.62, dens);
+  alpha *= smoothstep(0.0, 0.26, uv.x) * (1.0 - smoothstep(0.74, 1.0, uv.x));
+  alpha *= smoothstep(0.0, 0.2, uv.y) * (1.0 - smoothstep(0.7, 0.97, uv.y));
 
-  // Lit rim near the top of each billow, cooler and greyer deeper inside.
-  float inner = smoothstep(0.0, 0.9, dens);
-  vec3 cLight = vec3(0.99, 0.993, 1.0);
-  vec3 cShade = vec3(0.78, 0.82, 0.87);
-  vec3 col = mix(cLight, cShade, inner * (0.35 + 0.55 * n2));
+  // Sunlit billow tops, greying towards the underside of the bank, with soft folds between billows.
+  vec3 cLight = vec3(0.955, 0.978, 0.99);
+  vec3 cShade = vec3(0.815, 0.855, 0.875);
+  float under = 1.0 - smoothstep(0.28, 0.78, uv.y + (n1 - 0.5) * 0.25);
+  float fold = smoothstep(0.5, 0.8, n2) * 0.25;
+  vec3 col = mix(cLight, cShade, clamp(under * 0.85 + fold, 0.0, 1.0));
 
   vec2 sUv = gl_FragCoord.xy / uResolution;
   float storm = stormAmount(uChapter, sUv, n1);

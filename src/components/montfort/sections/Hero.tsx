@@ -17,7 +17,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section ref={root} id="Hero" className={styles.hero} data-chapter-theme="dark">
+    <section ref={root} id="Hero" className={styles.hero} data-chapter-theme="dark" data-cursor="draggable">
       <div className={styles.inner}>
         <LogoMobile className={styles.logoMobile} />
         <LogoDesktop className={styles.logoDesktop} />
