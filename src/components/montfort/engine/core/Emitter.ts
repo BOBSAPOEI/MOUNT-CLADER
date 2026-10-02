@@ -22,7 +22,7 @@ export class Emitter<E extends string> {
   }
 }
 
-export type EngineEvent = "MANIFEST_LOADED" | "ATTACH" | "DETACH" | "RESIZE" | "BEFORE_TICK" | "TICK" | "RENDER";
+export type EngineEvent = "MANIFEST_LOADED" | "ATTACH" | "DETACH" | "RESIZE" | "BEFORE_TICK" | "TICK" | "RENDER" | "AFTER_RENDER";
 
 export interface TickInfo {
   /** Elapsed seconds. */

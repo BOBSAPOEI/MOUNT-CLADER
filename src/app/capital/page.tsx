@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Montfort Capital" };
 
 export default function CapitalPage() {
   return (
-    <DivisionShell page="Capital" active={2}>
+    <DivisionShell page="Capital">
       <CapitalContent />
     </DivisionShell>
   );

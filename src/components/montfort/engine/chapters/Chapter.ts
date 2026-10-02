@@ -2,7 +2,8 @@ import gsap from "gsap";
 import * as THREE from "three";
 import { engine } from "../Engine";
 import { Assets, type Manifest } from "../core/Assets";
-import { clamp, mapRange } from "../globals";
+import { clamp, mapRange, type PageKey } from "../globals";
+import { curveFromGeometry } from "../scene/CameraRig";
 
 export interface ScrollRange {
   start: number;
@@ -45,6 +46,9 @@ export class Chapter extends THREE.Object3D {
   }
 
   loaded() {}
+
+  /** Called with the chapter's element each time its page is entered (e.g. to pick up DOM markers). */
+  updateDom?(el: HTMLElement): void;
 
   computeScrollRange(el: HTMLElement, first: boolean) {
     const { height, top } = el.getBoundingClientRect();
@@ -97,11 +101,23 @@ export class Chapter extends THREE.Object3D {
     const camera = engine().camera;
     const position = camera.targetPosition.clone();
     const lookAt = camera.targetLookAt.clone();
-    const hero = engine().page?.chapters.Hero as HeroChapter | undefined;
+    const hero = engine().pages[this.sceneKey as PageKey]?.chapters.Hero as HeroChapter | undefined;
     if (hero?.cameraMovement.position) position.add(hero.cameraMovement.position);
     if (hero?.cameraMovement.lookAt) lookAt.add(hero.cameraMovement.lookAt);
     this.position.copy(position);
     this.lookAt(lookAt);
+  }
+
+  /** Camera rails authored for this chapter in mountains.glb (`Path-<key>` / `TargetPath-<key>`). */
+  getCurve() {
+    const mountains = Assets.get<THREE.Object3D>("mountains");
+    const path = mountains.getObjectByName(`Path-${this.key}`)?.removeFromParent() as THREE.Mesh | undefined;
+    const target = mountains.getObjectByName(`TargetPath-${this.key}`)?.removeFromParent() as THREE.Mesh | undefined;
+    if (!path || !target) return undefined;
+    return {
+      position: curveFromGeometry(path.geometry, mountains.getObjectByName(`Point-${this.sceneKey}`)?.position),
+      lookAt: curveFromGeometry(target.geometry, mountains.getObjectByName(`TargetPoint-${this.sceneKey}`)?.position),
+    };
   }
 
   dispose() {

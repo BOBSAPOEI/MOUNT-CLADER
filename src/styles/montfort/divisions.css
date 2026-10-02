@@ -4,22 +4,6 @@
  * scoped styles, so they cannot leak into the homepage.
  */
 
-/* Fixed WebGL backdrop shared by every division page. */
-#canvas-wrapper {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  width: 100%;
-  height: calc(100 * var(--lvh));
-  pointer-events: auto;
-  touch-action: none;
-}
-
-#canvas-wrapper canvas {
-  width: 100%;
-  height: 100%;
-}
-
 /* Colour utilities used by the division markup. */
 .white {
   color: #fff;

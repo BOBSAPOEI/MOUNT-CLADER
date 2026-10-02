@@ -2,12 +2,12 @@ import * as THREE from "three";
 import { Chapter, HeroChapter } from "../chapters/Chapter";
 import { engine } from "../Engine";
 import { Assets } from "../core/Assets";
-import { GLOBAL, VIEWPORT } from "../globals";
+import { GLOBAL, type PageKey, VIEWPORT } from "../globals";
 import { CHAPTER_MANIFESTS, PAGE_MANIFESTS } from "../manifests";
 import { BoatMaritimeMaterial, type SeaMaterial, WaterMaterial } from "../materials/maritime";
 import { replaceMaterials } from "../materials/registry";
 import { Reflector } from "../scene/Reflector";
-import { Page } from "./Page";
+import { Page, type TransitionType } from "./Page";
 
 const M = CHAPTER_MANIFESTS.Maritime;
 
@@ -21,7 +21,7 @@ class MaritimeHero extends HeroChapter {
   enter() {
     super.enter();
     const e = engine();
-    e.mainScene.applyPreset(e.page!.preset.scene);
+    e.mainScene.applyPreset(e.pages[this.sceneKey as PageKey]!.preset.scene);
   }
 
   leave() {
@@ -135,8 +135,8 @@ export class MaritimePage extends Page {
     this.maritimeEnv = env;
   }
 
-  beforeEnter() {
-    super.beforeEnter();
+  beforeEnter(transitionType?: TransitionType) {
+    super.beforeEnter(transitionType);
     if (this.maritimeEnv) engine().mainScene.mountains.attach(this.maritimeEnv);
   }
 

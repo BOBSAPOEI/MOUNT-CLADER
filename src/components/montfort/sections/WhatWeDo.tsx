@@ -8,7 +8,7 @@ import styles from "./WhatWeDo.module.css";
 /** Divisions overview: headline, expandable intro and the four business divisions. */
 export function WhatWeDo() {
   return (
-    <section id="WhatWeDo" className="pt-24 dk:pt-40" style={{ paddingBottom: "calc(100 * var(--lvh) + 13.25rem)" }}>
+    <section id="WhatWeDo" data-chapter="WhatWeDo" className="pt-24 dk:pt-40" style={{ paddingBottom: "calc(100 * var(--lvh) + 13.25rem)" }}>
       <div data-chapter-theme="dark">
         <div className="mf-grid">
           <ScrubText

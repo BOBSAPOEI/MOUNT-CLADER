@@ -2,10 +2,10 @@ import * as THREE from "three";
 import { Chapter, HeroChapter } from "../chapters/Chapter";
 import { engine } from "../Engine";
 import type { TickInfo } from "../core/Emitter";
-import { GLOBAL } from "../globals";
+import { GLOBAL, type PageKey } from "../globals";
 import { CHAPTER_MANIFESTS, PAGE_MANIFESTS } from "../manifests";
 import { GridPlane, HoverParticles, Particles, WireframeInstances } from "../scene/objects";
-import { Page } from "./Page";
+import { Page, type TransitionType } from "./Page";
 
 const M = CHAPTER_MANIFESTS.Trading;
 
@@ -22,7 +22,7 @@ class TradingHero extends HeroChapter {
     super.enter();
     const e = engine();
     e.state.on("TICK", this.tick);
-    e.mainScene.applyPreset(e.page!.preset.scene);
+    e.mainScene.applyPreset(e.pages[this.sceneKey as PageKey]!.preset.scene);
     const raycaster = this.assets!.get("raycaster").getObjectByName("Raycaster") as THREE.Mesh;
     raycaster.visible = false;
     if (!e.mouse.isTouch) {
@@ -180,8 +180,8 @@ export class TradingPage extends Page {
     };
   }
 
-  beforeEnter() {
-    super.beforeEnter();
+  beforeEnter(transitionType?: TransitionType) {
+    super.beforeEnter(transitionType);
     engine().mainScene.mountains.add(this.particles);
   }
 

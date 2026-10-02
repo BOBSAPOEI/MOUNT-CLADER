@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { CapitalBackgroundMaterial, CapitalForegroundMaterial } from "./capital";
 import { CloudMaterial, LakeMaterial, MountainMaterial, SkyMaterial } from "./core";
 import { EnergyBgMaterial, EnergyConeMaterial, GlowMaterial, HologramsMaterial, LineMaterial, PowerLineMaterial } from "./fortEnergy";
+import { BoatHomepageMaterial, GovernanceBackgroundMaterial, HomepagePeaksMaterial } from "./homepage";
 import { DiffuseCloudMaterial, SeaMaterial, SeaRockMaterial } from "./maritime";
 import { PBRMaterial } from "./PBRMaterial";
 import { GridMaterial, WireframeMaterial } from "./trading";
@@ -14,6 +15,7 @@ type MaterialCtor = new (params: never, caller: never) => THREE.Material;
  * fall back to the custom PBR material; unlit / basic materials are left untouched.
  */
 const REGISTRY: Record<string, MaterialCtor> = {
+  BoatHomepage: BoatHomepageMaterial,
   CapitalBackground: CapitalBackgroundMaterial,
   CapitalForeground: CapitalForegroundMaterial,
   Cloud: CloudMaterial,
@@ -21,8 +23,10 @@ const REGISTRY: Record<string, MaterialCtor> = {
   EnergyBg: EnergyBgMaterial,
   EnergyCone: EnergyConeMaterial,
   Glow: GlowMaterial,
+  GovernanceBackground: GovernanceBackgroundMaterial,
   Grid: GridMaterial as unknown as MaterialCtor,
   Holograms: HologramsMaterial,
+  HomepagePeaks: HomepagePeaksMaterial,
   Lake: LakeMaterial,
   Line: LineMaterial,
   Mountain: MountainMaterial,

@@ -26,8 +26,8 @@ export function SideButtons({ theme: pageTheme }: { theme?: Theme } = {}) {
   useEffect(() => {
     // As on the original: the scroll-top arrow appears past the first screen, and the whole group fades
     // out once the footer starts entering the viewport.
-    const footer = document.querySelector("footer");
     const onScroll = () => {
+      const footer = document.querySelector("footer");
       setVisible(window.scrollY > window.innerHeight);
       setOverFooter(!!footer && footer.getBoundingClientRect().top < window.innerHeight);
     };

@@ -57,6 +57,12 @@ export const PAGE_MANIFESTS: Record<string, Manifest> = {
 
 /** Per-chapter assets. */
 export const CHAPTER_MANIFESTS: Record<string, Record<string, Manifest>> = {
+  Homepage: {
+    TopChapters: { models: { topChapters: { path: "/assets/models/homepage/TopChapters.glb" } } },
+    WhatWeDo: { models: { whatWeDo: { path: "/assets/models/homepage/WhatWeDo.glb" } } },
+    GlobalConnectivity: { models: { earth: { path: "/assets/models/homepage/earth-min.glb", ktx2: true } } },
+    Sustainability: { models: { sustainability: { path: "/assets/models/homepage/Sustainability-min.glb", ktx2: true } } },
+  },
   Trading: {
     Hero: { models: { raycaster: { path: "/assets/models/trading/raycaster.glb" } } },
     Oil: { models: { oilMetals: { path: "/assets/models/trading/oil-metals.glb" } } },

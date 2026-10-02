@@ -1,13 +1,13 @@
 import * as THREE from "three";
 import { Chapter, HeroChapter } from "../chapters/Chapter";
 import { engine } from "../Engine";
-import { GLOBAL } from "../globals";
+import { GLOBAL, type PageKey } from "../globals";
 import { CHAPTER_MANIFESTS, PAGE_MANIFESTS } from "../manifests";
 import type { CapitalForegroundMaterial } from "../materials/capital";
 import { GrassGroundMaterial, GrassPlantsMaterial } from "../materials/capital";
 import { instanceDuplicates, replaceMaterials } from "../materials/registry";
 import { Reflector } from "../scene/Reflector";
-import { Page } from "./Page";
+import { Page, type TransitionType } from "./Page";
 
 const M = CHAPTER_MANIFESTS.Capital;
 
@@ -21,7 +21,7 @@ class CapitalHero extends HeroChapter {
   enter() {
     super.enter();
     const e = engine();
-    e.mainScene.applyPreset(e.page!.preset.scene);
+    e.mainScene.applyPreset(e.pages[this.sceneKey as PageKey]!.preset.scene);
   }
 
   leave() {
@@ -120,8 +120,8 @@ export class CapitalPage extends Page {
     this.env.add(this.lake);
   }
 
-  beforeEnter() {
-    super.beforeEnter();
+  beforeEnter(transitionType?: TransitionType) {
+    super.beforeEnter(transitionType);
     engine().mainScene.mountains.add(this.env);
   }
 

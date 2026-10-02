@@ -5,7 +5,7 @@ import { LinkBlock } from "../ui/LinkBlock";
 /** "Who we are" intro: statement headline, short paragraph and link. */
 export function WhoWeAre() {
   return (
-    <section id="WhoWeAre" data-chapter-theme="dark" className="py-24 dk:py-40">
+    <section id="WhoWeAre" data-chapter="WhoWeAre" data-chapter-theme="dark" className="py-24 dk:py-40">
       <div className="mf-grid">
         <ScrubText
           className="fs-h2 mb-[8.75rem] uppercase text-navy-2 tb:col-end-4 dk:col-start-10 dk:col-end-23 dk:mb-[12.5rem] wide:col-start-14"

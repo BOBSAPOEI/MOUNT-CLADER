@@ -8,6 +8,8 @@ import type { MountainConfig } from "../materials/core";
 import type { CameraPreset } from "../scene/CameraRig";
 import type { ScenePreset } from "../scene/MainScene";
 
+export type TransitionType = "mountains" | "fade";
+
 export interface PagePreset {
   camera?: CameraPreset;
   scene?: ScenePreset;
@@ -54,17 +56,22 @@ export abstract class Page {
     return PAGES.indexOf(this.key);
   }
 
-  beforeEnter() {
+  /**
+   * Binds the page's `[data-chapter]` elements and applies its presets. After a "mountains" transition the
+   * camera is already in place (the slideshow flew it there), so its preset is skipped.
+   */
+  beforeEnter(transitionType?: TransitionType) {
     const container = document.querySelector(`[data-scene=${this.key}]`);
     container?.querySelectorAll<HTMLElement>("[data-chapter]").forEach((el) => {
       const chapter = this.chapters[el.dataset.chapter ?? ""];
       if (!chapter) return;
+      chapter.updateDom?.(el);
       chapter.computeScrollRange(el, !!el.dataset.chapterFirst);
       this.resizeObserver.observe(el);
       this.chaptersElements.set(el, chapter);
     });
     const e = engine();
-    e.camera.applyPreset(this.preset.camera, this.index);
+    if (transitionType !== "mountains") e.camera.applyPreset(this.preset.camera, this.index);
     e.mainScene.applyPreset(this.preset.scene, this.index);
     GLOBAL.uPage.value = this.index;
     GLOBAL.uChapter.value = 0;
@@ -75,6 +82,9 @@ export abstract class Page {
     GLOBAL.uLightColor.value.copy(PAGE_COLORS[this.key][0]);
     GLOBAL.uDarkColor.value.copy(PAGE_COLORS[this.key][1]);
   }
+
+  /** Optional hook once the enter transition has finished. */
+  afterEnter() {}
 
   afterLeave() {
     this.chaptersElements.forEach((chapter, el) => {

@@ -30,9 +30,21 @@ One persistent renderer/scene shared by every page (Astro ClientRouter keeps it 
 | Maritime | maritime-lightmap, rock + grass | maritime.glb (sea reflector, sea rocks, diffuse clouds) | Hero, MaritimeChapter (boat + water wake) |
 | Fort Energy | (mountains hidden behind env) | fort-energy.glb (energy background, cones, power lines, glow) | Hero, FortEnergyChapter (energy-chapter.glb on tertiary camera: grid, holograms, lines) |
 
+## Page transitions (original `TransitionSlideshow` + transition manager)
+- The canvas, header, menu, side buttons and the `.hero-transition` overlay persist across navigations.
+- **Hero slideshow**: pressing a hero plays a 3 s "longpress" timeline (`uTransition` 0→1 greys the world and shows
+  the transition clouds/lines, `uLongpress` lifts the camera, the hero fades and the strip of titles
+  Montfort · Trading · Capital · Maritime · Fort Energy fades in). Dragging moves the strip (`--slide-progress`), the
+  camera's `curveProgress` along the rail and `uSlideshowProgress`; releasing on another title navigates there.
+- **Navigation**: when both pages are on the rail and the visitor is at the top, the "mountains" transition flies
+  the camera to the target page (`max(5, 2·Δindex)` s), the new page enters with its hero hidden and the longpress
+  timeline reversed. Otherwise canvas, header, footer and main fade out / in (0.5 s).
+
 ## Port in this repo
 - Engine: `src/components/montfort/engine/` (shaders copied verbatim from the bundle; materials, scene, chapters and
-  pages re-implemented in TypeScript). `DivisionScene` boots it per route and lazy-loads the page class.
+  pages re-implemented in TypeScript), including the homepage scene. `webgl/WebGLRoot` (root layout) boots one
+  engine for the whole site; `engine/transition/` holds the slideshow and the router that intercepts internal
+  links, plays the leave timeline, calls the Next.js router and swaps the WebGL page once the route has rendered.
 - DOM: `src/components/montfort/divisions/content/*.tsx` is the original `<main>` markup converted to JSX; Astro scope
   attributes become `data-mf-<component>` and the matching rules (plus the few unscoped ones the components rely on,
   confined with `:where(main[data-division])`) live in `src/styles/montfort/divisions.css`.

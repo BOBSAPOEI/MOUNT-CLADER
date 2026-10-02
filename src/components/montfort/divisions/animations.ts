@@ -4,8 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, CustomEase);
-// As on the original: tweens follow wall-clock time even when a heavy WebGL frame stalls the ticker.
-gsap.ticker.lagSmoothing(0);
 CustomEase.create("immg.zoomIn", "0.9, 0.0, 0.4, 1.0");
 CustomEase.create("immg.zoomOut", "0.4, 0.0, 0.1, 1.0");
 CustomEase.create("immg.posIn", "0.4, 0.0, 0.1, 1.0");

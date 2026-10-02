@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Montfort Trading" };
 
 export default function TradingPage() {
   return (
-    <DivisionShell page="Trading" active={1}>
+    <DivisionShell page="Trading">
       <TradingContent />
     </DivisionShell>
   );

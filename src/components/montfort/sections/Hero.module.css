@@ -1,6 +1,8 @@
+/* Pointer events go through to the slideshow overlay underneath (press / drag to switch division). */
 .hero {
   width: 100%;
   height: calc(150 * var(--lvh));
+  pointer-events: none;
 }
 
 .inner {

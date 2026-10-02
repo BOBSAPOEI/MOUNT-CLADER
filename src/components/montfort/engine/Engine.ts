@@ -1,16 +1,21 @@
+import gsap from "gsap";
 import * as THREE from "three";
 import { Assets } from "./core/Assets";
 import { Emitter, type EngineEvent, type TickInfo } from "./core/Emitter";
 import { Mouse, Noise, Viewport } from "./core/Tools";
-import { GLOBAL, lerp } from "./globals";
+import { GLOBAL, lerp, type PageKey } from "./globals";
 import { GLOBAL_MANIFEST } from "./manifests";
 import { clearMaterialCache } from "./materials/registry";
+import { PAGE_LOADERS } from "./pages";
 import type { Page } from "./pages/Page";
 import { CameraRig } from "./scene/CameraRig";
 import { MainScene } from "./scene/MainScene";
 import { MouseComputation } from "./scene/MouseComputation";
 
 let instance: Engine | null = null;
+
+// As on the original: tweens follow wall-clock time even when a heavy WebGL frame stalls the ticker.
+gsap.ticker.lagSmoothing(0);
 
 /** The running engine (materials and chapters reach shared state through it, like the original's `E`). */
 export function engine(): Engine {
@@ -37,7 +42,11 @@ export class Engine {
   readonly assets: Assets;
   readonly lerpedMouse = new THREE.Vector2();
   mouseComputation?: MouseComputation;
-  page?: Page;
+  /** Page instances created so far (kept alive across navigations, as on the original). */
+  readonly pages: Partial<Record<PageKey, Page>> = {};
+  currentPage?: Page;
+  nextPage?: Page;
+  booted = false;
   scrollProgress = 0;
   lerpedScrollProgress = 0;
   private absoluteScrollProgress = 0;
@@ -63,19 +72,48 @@ export class Engine {
     this.assets = new Assets("global", GLOBAL_MANIFEST, { isMobile: this.viewport.isMobileAtLaunch, renderer: this.renderer });
   }
 
-  /** Loads the shared scenery, then the page, then attaches (same order as the original boot). */
-  async init(createPage: () => Page) {
+  /** The page being shown (alias kept for chapter code). */
+  get page() {
+    return this.currentPage;
+  }
+
+  /** Loads the shared scenery, then the first page, then attaches (same order as the original boot). */
+  async boot(key: PageKey | null) {
     await this.assets.load();
     if (this.disposed) return;
     const mountains = Assets.get<THREE.Object3D>("mountains");
     this.mainScene.setup(this.renderer, Assets.get<THREE.DataTexture>("envMap"), mountains);
     this.camera.setupCurves(mountains);
     if (!this.mouse.isTouch) this.mouseComputation = new MouseComputation(this.renderer, this.mouse);
-    this.page = createPage();
-    await this.page.load();
+    this.currentPage = key ? await this.getPage(key) : undefined;
+    await this.currentPage?.load();
     if (this.disposed) return;
     this.attach();
     this.onResize(this.viewport.infos);
+    this.booted = true;
+  }
+
+  /** Instance of a page, created on first use. */
+  async getPage(key: PageKey) {
+    if (!this.pages[key]) {
+      const PageClass = await PAGE_LOADERS[key]();
+      this.pages[key] ??= new PageClass();
+    }
+    return this.pages[key]!;
+  }
+
+  /** Remembers where the next navigation goes (the original's `setNextPage`). */
+  async setNextPage(key: PageKey | null) {
+    this.nextPage = key ? await this.getPage(key) : undefined;
+    return this.nextPage;
+  }
+
+  /** The new document is in place: the next page becomes current and the scroll state restarts. */
+  afterSwap() {
+    this.currentPage = this.nextPage;
+    this.nextPage = undefined;
+    this.renderer.domElement.style.visibility = this.currentPage ? "" : "hidden";
+    this.scrollProgress = this.lerpedScrollProgress = window.scrollY;
   }
 
   private attach() {
@@ -87,7 +125,8 @@ export class Engine {
     this.scrollProgress = this.lerpedScrollProgress = window.scrollY;
     // The camera ticks before the page's scroll update (it was registered first in the original).
     this.state.on("TICK", this.onCameraTick);
-    this.page?.beforeEnter();
+    this.currentPage?.beforeEnter();
+    this.currentPage?.afterEnter();
     this.wrapper.prepend(this.renderer.domElement);
     this.state.on("RESIZE", this.onResize);
     this.state.on("BEFORE_TICK", this.beforeTick);
@@ -121,7 +160,7 @@ export class Engine {
   };
 
   private render = () => {
-    if (!this.page) return;
+    if (!this.currentPage) return;
     this.renderer.clear();
     this.renderer.render(this.mainScene, this.camera);
   };
@@ -141,6 +180,7 @@ export class Engine {
       this.state.emit("BEFORE_TICK", info);
       this.state.emit("TICK", info);
       this.state.emit("RENDER", info);
+      this.state.emit("AFTER_RENDER", info);
     };
     this.raf = requestAnimationFrame(loop);
   }
@@ -149,7 +189,7 @@ export class Engine {
     this.disposed = true;
     this.running = false;
     cancelAnimationFrame(this.raf);
-    this.page?.dispose();
+    Object.values(this.pages).forEach((p) => p?.dispose());
     this.viewport.detach();
     this.mouse.detach();
     this.state.clear();

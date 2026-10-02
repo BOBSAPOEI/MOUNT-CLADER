@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Fort Energy" };
 
 export default function FortEnergyPage() {
   return (
-    <DivisionShell page="FortEnergy" active={4}>
+    <DivisionShell page="FortEnergy">
       <FortEnergyContent />
     </DivisionShell>
   );

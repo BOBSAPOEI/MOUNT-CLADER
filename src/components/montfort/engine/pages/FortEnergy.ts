@@ -1,11 +1,11 @@
 import * as THREE from "three";
 import { Chapter, HeroChapter } from "../chapters/Chapter";
 import { engine } from "../Engine";
-import { GLOBAL } from "../globals";
+import { GLOBAL, type PageKey } from "../globals";
 import { CHAPTER_MANIFESTS, PAGE_MANIFESTS } from "../manifests";
 import { replaceMaterials } from "../materials/registry";
 import { GridMaterial } from "../materials/trading";
-import { Page } from "./Page";
+import { Page, type TransitionType } from "./Page";
 
 const M = CHAPTER_MANIFESTS.FortEnergy;
 
@@ -21,15 +21,15 @@ class FortEnergyHero extends HeroChapter {
   enter() {
     super.enter();
     const e = engine();
-    e.mainScene.applyPreset(e.page!.preset.scene);
-    e.page!.env.visible = true;
+    e.mainScene.applyPreset(e.pages[this.sceneKey as PageKey]!.preset.scene);
+    e.pages[this.sceneKey as PageKey]!.env.visible = true;
   }
 
   leave() {
     super.leave();
     const e = engine();
     e.mainScene.applyPreset({ cloudsVisible: false, flaresVisible: false, mountainsVisible: true, skyVisible: false, seaVisible: false });
-    e.page!.env.visible = false;
+    e.pages[this.sceneKey as PageKey]!.env.visible = false;
   }
 
   createNoOverlapScrollTimeline() {
@@ -186,8 +186,8 @@ export class FortEnergyPage extends Page {
     this.env.add(model);
   }
 
-  beforeEnter() {
-    super.beforeEnter();
+  beforeEnter(transitionType?: TransitionType) {
+    super.beforeEnter(transitionType);
     engine().mainScene.add(this.env);
   }
 
