@@ -47,3 +47,7 @@ next-env.d.ts
 
 # Local temp files
 temp/
+
+# Local QA workspace (reference screenshots, comparison output)
+.qa/
+.qa-local/
