@@ -18,6 +18,8 @@ export class ForestLayer implements SceneLayer {
       const mesh = o as THREE.Mesh;
       if (!mesh.isMesh) return;
       const isBackground = mesh.name === "Forest-Background";
+      mesh.geometry.computeBoundingBox();
+      const box = mesh.geometry.boundingBox ?? new THREE.Box3(new THREE.Vector3(-1, 0, -1), new THREE.Vector3(1, 0, 1));
       mesh.material = new THREE.ShaderMaterial({
         vertexShader: FOREST_VERT,
         fragmentShader: FOREST_FRAG,
@@ -31,6 +33,9 @@ export class ForestLayer implements SceneLayer {
           uBlur: { value: isBackground ? 0.0035 : 0.0016 },
           uBrightness: { value: isBackground ? 0.62 : 0.5 },
           uTint: { value: new THREE.Color(0.9, 1, 1) },
+          uBounds: { value: new THREE.Vector4(box.min.x, box.min.z, box.max.x, box.max.z) },
+          // The backdrop extends past the frame; only the tree cut-outs need a feathered border.
+          uFeather: { value: isBackground ? 0.0001 : 0.22 },
         },
       });
       mesh.renderOrder = isBackground ? 0 : 1;

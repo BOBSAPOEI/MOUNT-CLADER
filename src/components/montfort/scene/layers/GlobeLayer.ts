@@ -20,9 +20,12 @@ export class GlobeLayer implements SceneLayer {
     if (!map) return;
 
     const geometry = new THREE.SphereGeometry(10, 96, 96);
+    // Transparent so `uOpacity` blends the earth over the sky; an opaque pass would write the fade
+    // into the canvas alpha and let the page background wash the globe out.
     const earthMat = new THREE.ShaderMaterial({
       vertexShader: GLOBE_VERT,
       fragmentShader: GLOBE_FRAG,
+      transparent: true,
       uniforms: {
         tData: { value: map },
         tNoise: ctx.shared.tNoise,
@@ -45,6 +48,8 @@ export class GlobeLayer implements SceneLayer {
     const earth = new THREE.Mesh(geometry, earthMat);
     const glow = new THREE.Mesh(geometry, glowMat);
     glow.scale.setScalar(1.02);
+    earth.renderOrder = 0;
+    glow.renderOrder = 1;
     this.group = new THREE.Group();
     this.group.add(earth, glow);
     this.materials = [earthMat, glowMat];

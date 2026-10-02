@@ -1,17 +1,21 @@
 /** Forest backdrop planes (blurred photo atlas) and drifting dust particles for the night chapters. */
 export const FOREST_VERT = /* glsl */ `
 varying vec2 vUv;
+varying vec2 vLocal;
 void main() {
   vUv = uv;
+  vLocal = position.xz;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }`;
 
 export const FOREST_FRAG = /* glsl */ `
 precision highp float;
 uniform sampler2D tMap;
-uniform float uOpacity, uBlur, uBrightness, uTime;
+uniform float uOpacity, uBlur, uBrightness, uTime, uFeather;
 uniform vec3 uTint;
+uniform vec4 uBounds;
 varying vec2 vUv;
+varying vec2 vLocal;
 
 void main() {
   vec2 uv = vUv;
@@ -27,7 +31,12 @@ void main() {
   }
   acc /= wsum;
   vec3 col = acc.rgb * uBrightness * uTint;
-  gl_FragColor = vec4(col, acc.a * uOpacity);
+  // The tree cut-outs are trimmed planes whose foliage runs up to the border; feather the border
+  // so the plane outline never shows as a hard rectangle.
+  vec2 lo = smoothstep(uBounds.xy, uBounds.xy + uFeather, vLocal);
+  vec2 hi = 1.0 - smoothstep(uBounds.zw - uFeather, uBounds.zw, vLocal);
+  float edge = lo.x * lo.y * hi.x * hi.y;
+  gl_FragColor = vec4(col, acc.a * uOpacity * edge);
 }`;
 
 export const DUST_VERT = /* glsl */ `

@@ -152,7 +152,7 @@ void main() {
   vec3 stormCol = mix(uDark * 1.1, uLight * 0.82, n2 * 0.55);
   col = mix(col, stormCol, storm);
 
-  // Fades out as the camera dives below the cloud decks and into the globe chapter.
-  float fade = 1.0 - smoothstep(3.0, 3.3, uChapter);
+  // Fades out once the camera is well below the decks: seen from the storm their plane edges show.
+  float fade = 1.0 - smoothstep(2.42, 2.58, uChapter);
   gl_FragColor = vec4(col, alpha * uOpacity * fade);
 }`;

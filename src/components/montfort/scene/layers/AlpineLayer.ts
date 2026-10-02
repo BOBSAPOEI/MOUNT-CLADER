@@ -109,8 +109,10 @@ export class AlpineLayer implements SceneLayer {
 
   update(frame: Frame) {
     const c = frame.chapter;
-    if (this.mountain) this.mountain.visible = c < 3.3;
-    if (this.peaks) this.peaks.visible = c < 3.3;
-    this.banks.forEach((b) => (b.visible = c < 3.4));
+    // Once the camera has dived through the cloud deck into the storm, the summits above it would
+    // only show as flat cloud-white silhouettes, so they are dropped.
+    if (this.mountain) this.mountain.visible = c < 2.3;
+    if (this.peaks) this.peaks.visible = c < 2.3;
+    this.banks.forEach((b) => (b.visible = c < 2.6));
   }
 }
