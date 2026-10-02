@@ -16,9 +16,9 @@ export const TERMS = [
 ];
 
 export const OFFICES = [
-  { name: "Geneva, Switzerland", address: "3rd & 4th floor\nRue du Mont-Blanc 14\n1201 Geneva, Switzerland", phone: "+41 227415900", tel: "+41227415900", email: "gva.reception@mont-fort.com" },
-  { name: "Dubai, UAE", address: "1104 ICD Brookfield Place\nDubai International Financial Centre\nDubai, United Arab Emirates", phone: "+971 45914032", tel: "+97145914032", email: "uae.reception@mont-fort.com" },
-  { name: "Singapore", address: "0804 Marina One East Tower\n7 Straits View\n018936, Singapore", phone: "+65 3105 1583", tel: "+6531051583", email: "sing.reception@mont-fort.com" },
+  { name: "Geneva, Switzerland", address: " 3rd & 4th floor\nRue du Mont-Blanc 14\u2028\n1201 Geneva, Switzerland ", phone: "+41 227415900", tel: "+41227415900", email: "gva.reception@mont-fort.com" },
+  { name: "Dubai, UAE", address: " 1104 ICD Brookfield Place\nDubai International Financial\nCentre\u2028\nDubai, United Arab Emirates ", phone: "+971 45914032", tel: "+97145914032", email: "uae.reception@mont-fort.com" },
+  { name: "Singapore", address: " 0804 Marina One East Tower\n7 Straits View\n018936, Singapore ", phone: "+65 3105 1583", tel: "+6531051583", email: "sing.reception@mont-fort.com" },
 ];
 
 export const CITIES = [

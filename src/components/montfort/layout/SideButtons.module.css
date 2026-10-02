@@ -4,6 +4,15 @@
   z-index: 5;
   width: 100%;
   pointer-events: none;
+  transition: opacity 0.5s linear;
+}
+
+.faded {
+  opacity: 0;
+}
+
+.faded .button {
+  pointer-events: none;
 }
 
 @media (min-width: 48em) {
@@ -61,7 +70,8 @@
     border-color 0.4s linear;
 }
 
-.container[data-theme="light"] .button {
+/* Only the sound waveform follows the theme; the scroll-top arrow keeps its fixed #2d628c fill. */
+.container[data-theme="light"] .sound {
   color: #fff;
 }
 

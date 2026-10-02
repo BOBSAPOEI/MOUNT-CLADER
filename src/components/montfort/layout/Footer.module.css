@@ -57,6 +57,8 @@
 }
 
 .office h2 {
+  max-width: 6.875rem;
+  min-height: 4rem;
   margin-bottom: 1.5rem;
   color: #2d628c;
   font-size: 1.25rem;
@@ -68,7 +70,7 @@
 .address {
   margin-bottom: 1rem;
   color: #81a0bb;
-  white-space: pre-line;
+  white-space: pre-wrap;
 }
 
 .contact a {

@@ -2,23 +2,27 @@
 
 import { useEffect, useRef, useState } from "react";
 import { NAV } from "@/lib/montfort/content";
-import { useThemeAt } from "../motion/useChapterTheme";
+import { type Theme, useThemeAt } from "../motion/useChapterTheme";
 import styles from "./Header.module.css";
 
 interface HeaderProps {
   menuOpen: boolean;
   onToggleMenu: () => void;
+  /** Index of the current page in the division links (0 = Montfort Group). */
+  active?: number;
+  /** Page-level ink colour; division pages use white ink ("light") like the original. */
+  theme?: Theme;
 }
 
 const probe = () => 70;
 
 /** Fixed top bar: division links with a sliding underline, news counter and menu toggle. */
-export function Header({ menuOpen, onToggleMenu }: HeaderProps) {
-  const theme = useThemeAt(probe);
+export function Header({ menuOpen, onToggleMenu, active = 0, theme: pageTheme }: HeaderProps) {
+  const probedTheme = useThemeAt(probe);
+  const theme = pageTheme ?? probedTheme;
   const [hidden, setHidden] = useState(false);
   const list = useRef<HTMLUListElement>(null);
   const [bar, setBar] = useState({ left: 0, width: 0 });
-  const active = 0;
 
   // Hide while scrolling down, show again when scrolling up (or near the top).
   useEffect(() => {
@@ -48,7 +52,7 @@ export function Header({ menuOpen, onToggleMenu }: HeaderProps) {
     document.fonts?.ready.then(set);
     window.addEventListener("resize", set);
     return () => window.removeEventListener("resize", set);
-  }, []);
+  }, [active]);
 
   return (
     <header id="header" className={`${styles.header} ${hidden && !menuOpen ? styles.hidden : ""}`} data-theme={menuOpen ? "dark" : theme}>

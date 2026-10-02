@@ -3,22 +3,34 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ASSET } from "@/lib/montfort/content";
 import { ScrollTopIcon } from "../ui/icons";
-import { useThemeAt } from "../motion/useChapterTheme";
+import { type Theme, useThemeAt } from "../motion/useChapterTheme";
 import styles from "./SideButtons.module.css";
 
 const probe = (vh: number) => vh - 100;
 
-/** Fixed scroll-to-top and ambient-sound buttons in the bottom-right corner. */
-export function SideButtons() {
-  const theme = useThemeAt(probe);
+/**
+ * Fixed scroll-to-top and ambient-sound buttons in the bottom-right corner. Division pages pass their
+ * fixed theme (the original sets it from the path); the homepage follows the chapter under the buttons.
+ */
+export function SideButtons({ theme: pageTheme }: { theme?: Theme } = {}) {
+  const probedTheme = useThemeAt(probe);
+  const theme = pageTheme ?? probedTheme;
   const [visible, setVisible] = useState(false);
+  const [overFooter, setOverFooter] = useState(false);
   const [playing, setPlaying] = useState(false);
   const audio = useRef<HTMLAudioElement | null>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const level = useRef(0);
+  const soundButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.6);
+    // As on the original: the scroll-top arrow appears past the first screen, and the whole group fades
+    // out once the footer starts entering the viewport.
+    const footer = document.querySelector("footer");
+    const onScroll = () => {
+      setVisible(window.scrollY > window.innerHeight);
+      setOverFooter(!!footer && footer.getBoundingClientRect().top < window.innerHeight);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -55,29 +67,42 @@ export function SideButtons() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  const toggleSound = useCallback(() => {
+  const play = useCallback(() => {
     if (!audio.current) {
       audio.current = new Audio(`${ASSET}/sounds/sound.mp3`);
       audio.current.loop = true;
       audio.current.volume = 0.5;
     }
-    if (audio.current.paused) {
-      void audio.current.play();
-      setPlaying(true);
-    } else {
-      audio.current.pause();
-      setPlaying(false);
-    }
+    if (!audio.current.paused) return;
+    void audio.current.play().catch(() => setPlaying(false));
+    setPlaying(true);
   }, []);
 
+  const toggleSound = useCallback(() => {
+    if (audio.current && !audio.current.paused) {
+      audio.current.pause();
+      setPlaying(false);
+    } else play();
+  }, [play]);
+
+  // The original starts the ambient track on the visitor's first click anywhere on the page.
+  useEffect(() => {
+    // Skip the sound button itself: React's delegated handler runs after this one and toggles on its own.
+    const first = (e: MouseEvent) => {
+      if (!soundButton.current?.contains(e.target as Node)) play();
+    };
+    document.body.addEventListener("click", first, { once: true });
+    return () => document.body.removeEventListener("click", first);
+  }, [play]);
+
   return (
-    <div className={styles.container} data-theme={theme}>
+    <div className={`${styles.container} ${overFooter ? styles.faded : ""}`} data-theme={theme}>
       <div className={styles.wrapper}>
         <div className={styles.inner}>
           <button className={`${styles.button} ${styles.top} ${visible ? styles.visible : ""}`} onClick={() => window.dispatchEvent(new Event("mf:scroll-top"))} aria-label="Scroll to top" data-cursor="clickable">
             <ScrollTopIcon />
           </button>
-          <button className={`${styles.button} ${styles.sound}`} onClick={toggleSound} aria-label={playing ? "Mute sound" : "Play sound"} aria-pressed={playing} data-cursor="clickable">
+          <button ref={soundButton} className={`${styles.button} ${styles.sound}`} onClick={toggleSound} aria-label={playing ? "Mute sound" : "Play sound"} aria-pressed={playing} data-cursor="clickable">
             <canvas ref={canvas} />
           </button>
         </div>
