@@ -22,7 +22,7 @@ export function WhatWeDo() {
             <Reveal>
               <ReadMore lines={4} tone="secondary" textClassName="text-navy">
                 <p className="fs-s1">
-                  Montfort&apos;s interlinked divisions complement each other, providing integrated services that leverage their combined expertise. This synergy enhances our operational efficiency, enabling us to drive collective success in the global market and deliver exceptional value to our stakeholders.
+                  Calder&apos;s interlinked divisions complement each other, providing integrated services that leverage their combined expertise. This synergy enhances our operational efficiency, enabling us to drive collective success in the global market and deliver exceptional value to our stakeholders.
                 </p>
               </ReadMore>
             </Reveal>

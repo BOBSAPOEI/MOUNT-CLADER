@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Montfort Group",
-  description: "Montfort is a global commodity trading and asset investment company.",
+  title: "Calder Group",
+  description: "Calder is a global commodity trading and asset investment company.",
 };
 
 export default function RootLayout({

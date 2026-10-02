@@ -1,13 +1,13 @@
 export const ASSET = "/montfort";
 
 export const DIVISIONS = [
-  { href: "/trading/", name: "Montfort Trading", title: "Operating Efficiently by Leading with Innovation." },
-  { href: "/capital/", name: "Montfort Capital", title: "Identify and seize opportunities that maximise Value" },
-  { href: "/maritime/", name: "Montfort Maritime", title: "Powering Progress, Delivering Energy." },
+  { href: "/trading/", name: "Calder Trading", title: "Operating Efficiently by Leading with Innovation." },
+  { href: "/capital/", name: "Calder Capital", title: "Identify and seize opportunities that maximise Value" },
+  { href: "/maritime/", name: "Calder Maritime", title: "Powering Progress, Delivering Energy." },
   { href: "/fort-energy/", name: "Fort Energy", title: "Advancing Innovation in Energy Investments" },
 ] as const;
 
-export const NAV = [{ href: "/", name: "Montfort Group" }, ...DIVISIONS.map((d) => ({ href: d.href, name: d.name }))];
+export const NAV = [{ href: "/", name: "Calder Group" }, ...DIVISIONS.map((d) => ({ href: d.href, name: d.name }))];
 export const TERMS = [
   { href: "/contact/", name: "Contact" },
   { href: "/#Sustainability", name: "ESG" },
@@ -45,7 +45,7 @@ export const SOLUTIONS = [
 export const ETHICS = [
   "We ensure compliance with all applicable laws and regulations across our global operations, including those of the UN, EU, Switzerland, UK, US, Singapore, and the UAE.",
   "Prior to engaging with any counterparty, a thorough and rigorous external onboarding process is conducted for all our trade counterparties and vessels we employ.",
-  "Any products purchased, sold, or shipped by Montfort are in full compliance with all applicable laws and regulations, including those related to trade, sanctions, and anti-bribery & corruption (ABAC).",
+  "Any products purchased, sold, or shipped by Calder are in full compliance with all applicable laws and regulations, including those related to trade, sanctions, and anti-bribery & corruption (ABAC).",
   "Using renowned global compliance platforms, we analyze the counterparty, their corporate structure, and their UBO.",
   "Our processes are thoroughly in line with the leading standards and best practices of international companies.",
   "We use our internally developed, digitized platform to onboard the counterparties. Our goal is to deliver products responsibly and reliably, upholding international standards and prioritizing health, safety, environmental, and social considerations in all our activities.",
@@ -62,7 +62,7 @@ export interface Pillar {
 export const PILLARS: readonly Pillar[] = [
   {
     label: "Alleviating Poverty",
-    body: "With the help of local NGOs, we support the communities where we invest. Montfort has successfully financed clean water projects, initiatives for orphaned children, earthquake relief, food distribution, and medical support for those in need.",
+    body: "With the help of local NGOs, we support the communities where we invest. Calder has successfully financed clean water projects, initiatives for orphaned children, earthquake relief, food distribution, and medical support for those in need.",
     image: { w260: "m_Z8rUwY.png", w400: "m_Z205R7p.png", w682: "m_Z19s3SG.png" },
     logos: [
       { file: "m_Z1gzCkt.png", alt: "Mercy Ships Logo" },

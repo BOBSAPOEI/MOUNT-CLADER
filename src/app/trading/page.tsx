@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TradingContent } from "@/components/montfort/divisions/content/Trading";
 import { DivisionShell } from "@/components/montfort/divisions/DivisionShell";
 
-export const metadata: Metadata = { title: "Montfort Trading" };
+export const metadata: Metadata = { title: "Calder Trading" };
 
 export default function TradingPage() {
   return (

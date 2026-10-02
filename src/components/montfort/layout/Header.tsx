@@ -8,7 +8,7 @@ import styles from "./Header.module.css";
 interface HeaderProps {
   menuOpen: boolean;
   onToggleMenu: () => void;
-  /** Index of the current page in the division links (0 = Montfort Group). */
+  /** Index of the current page in the division links (0 = Calder Group). */
   active?: number;
   /** Page-level ink colour; division pages use white ink ("light") like the original. */
   theme?: Theme;

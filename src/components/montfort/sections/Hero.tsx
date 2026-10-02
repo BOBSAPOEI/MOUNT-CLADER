@@ -4,13 +4,13 @@ import { useEffect, useRef } from "react";
 import { ScrollDownIcon, LogoDesktop, LogoMobile } from "../ui/icons";
 import styles from "./Hero.module.css";
 
-/** Opening screen: the Montfort logo over the mountain scene and a scroll prompt. */
+/** Opening screen: the Calder logo over the mountain scene and a scroll prompt. */
 export function Hero() {
   const root = useRef<HTMLElement>(null);
 
   // Give every logo path its own delay so the mark assembles dot by dot.
   useEffect(() => {
-    root.current?.querySelectorAll<SVGPathElement>("svg path").forEach((path, i, all) => {
+    root.current?.querySelectorAll<SVGElement>("svg > *").forEach((path, i, all) => {
       const order = i < all.length / 2 ? i : i - all.length / 2;
       path.style.setProperty("--i", String(order));
     });

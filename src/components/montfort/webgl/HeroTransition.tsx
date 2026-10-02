@@ -1,7 +1,7 @@
 import { PAGES } from "../engine/globals";
 
 const TITLES: Record<(typeof PAGES)[number], string> = {
-  Homepage: "Montfort",
+  Homepage: "Calder",
   Trading: "Trading",
   Capital: "Capital",
   Maritime: "Maritime",

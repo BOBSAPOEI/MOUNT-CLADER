@@ -12,7 +12,7 @@ export function WhoWeAre() {
           from="#81a0bb"
           to="#2d628c"
         >
-          Montfort is a global commodity trading and asset investment company.
+          Calder is a global commodity trading and asset investment company.
         </ScrubText>
         <div className="dk:col-start-5 dk:col-end-13 wide:col-start-7">
           <Reveal className="fs-s1 text-navy">
