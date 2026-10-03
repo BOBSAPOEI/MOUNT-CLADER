@@ -2,10 +2,10 @@ import { PAGES } from "../engine/globals";
 
 const TITLES: Record<(typeof PAGES)[number], string> = {
   Homepage: "Calder",
-  Trading: "Trading",
-  Capital: "Capital",
-  Maritime: "Maritime",
-  FortEnergy: "Fort Energy",
+  Trading: "Digital",
+  Capital: "Content",
+  Maritime: "Media",
+  FortEnergy: "Data",
 };
 
 /** Strip of division titles revealed while pressing / dragging on a hero (driven by the engine's slideshow). */

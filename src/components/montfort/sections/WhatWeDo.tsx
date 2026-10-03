@@ -16,13 +16,13 @@ export function WhatWeDo() {
             from="#81a0bb"
             to="#2d628c"
           >
-            We provide energy solutions with integrity and efficiency through our different business divisions.
+            We provide marketing solutions with integrity and efficiency through our different business divisions.
           </ScrubText>
           <div className="tb:col-start-2 dk:col-start-14 dk:col-end-22 wide:col-start-15 wide:col-end-21">
             <Reveal>
               <ReadMore lines={4} tone="secondary" textClassName="text-navy">
                 <p className="fs-s1">
-                  Calder&apos;s interlinked divisions complement each other, providing integrated services that leverage their combined expertise. This synergy enhances our operational efficiency, enabling us to drive collective success in the global market and deliver exceptional value to our stakeholders.
+                  Calder&apos;s interlinked divisions complement each other, providing integrated services that leverage their combined expertise. This synergy enhances our operational efficiency, enabling us to drive collective success for brands worldwide and deliver exceptional value to our stakeholders.
                 </p>
               </ReadMore>
             </Reveal>

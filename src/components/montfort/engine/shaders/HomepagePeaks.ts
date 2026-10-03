@@ -1,4 +1,4 @@
-/* HomepagePeaks material shaders, verbatim from the original site (three.js r169 GLSL). */
+/* HomepagePeaks material shaders from the original site (three.js r169 GLSL), plus the blocks marked "Realism". */
 
 /** "/// #replace <target>" blocks injected into the PBR fragment shader. */
 export const fragmentChunks = /* glsl */ `/// #replace #define SIXTY_UNIFORMS_AREA
@@ -7,7 +7,7 @@ uniform float uTransition, uTime;
 uniform vec2 uResolution;
 uniform float uFogNear, uFogFar;
 uniform vec3 uLightColor, uTransitionColor;
-uniform sampler2D tMouse, tNoise, tPerlin;
+uniform sampler2D tMouse, tNoise, tPerlin, tRock;
 varying vec3 vPosition;
 
 vec3 adjustSaturation(vec3 color, float saturation) {
@@ -66,6 +66,15 @@ diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1.), windySnow);
 #define SIXTY_NORMAL_AREA
 
 normal = perturbNormalArb(-vViewPosition, normal, dHdxy_fwd(tPerlin, 6. * vUv, 2.));
+
+/* Realism: bare rock on the steep faces (snow slides off), with snow kept on its ledges */
+vec3 worldGeometryNormal = normalize((vec4(normalize(vNormal), 0.) * viewMatrix).xyz);
+float cliffs = worldGeometryNormal.y + .3 * (texture2D(tNoise, vUv * 9.).r - .5) + .12 * (texture2D(tNoise, vUv * 37.).r - .5);
+cliffs = smoothstep(.53, .47, cliffs);
+vec3 rockAlbedo = adjustSaturation(texture2D(tRock, vUv * vec2(3., 8.)).rgb, .4) * vec3(.8, .89, 1.);
+rockAlbedo = max(vec3(0.), (rockAlbedo - .3) * 1.5 + .3) * .95;
+float ledges = smoothstep(.6, .82, normalize((vec4(normal, 0.) * viewMatrix).xyz).y);
+diffuseColor.rgb *= mix(vec3(1.), rockAlbedo, cliffs * (1. - .85 * ledges) * (1. - transition));
 
 /// #replace gl_FragColor = vec4(outgoingLight, diffuseColor.a);
 

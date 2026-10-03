@@ -1,4 +1,4 @@
-/* Mountain material shaders, verbatim from the original site (three.js r169 GLSL). */
+/* Mountain material shaders from the original site (three.js r169 GLSL), plus the blocks marked "Realism". */
 
 export const fragmentShader = /* glsl */ `precision highp float;
 
@@ -394,8 +394,28 @@ void main() {
 
 	vec4 mixMapSample = texture2D(tMixMap, vec2(vUv.x, 1. - vUv.y) + 0.002 * smallNoise);
 
+			/* Realism (homepage & trading): snow slides off steep faces, leaving bare rock cliffs */
+	float snowy = homepage + trading;
+	vec3 worldGeometryNormal = normalize((vec4(normalize(vNormal), 0.) * viewMatrix).xyz);
+	float cliffNoise = texture2D(tNoise, vUv * 23.).r - .5;
+	float cliffs = worldGeometryNormal.y + .3 * cliffNoise + .12 * (texture2D(tNoise, vUv * 97.).r - .5) + .2 * bigNoise.r;
+	cliffs = smoothstep(.53, .47, cliffs);
+	float snowCover = mixMapSample.r * (1. - cliffs * snowy);
+
+			/* Realism: real rock albedo, triplanar so cliff faces keep their strata, cooled for the homepage light */
+	vec3 rockPosition = vPosition * .06;
+	vec3 rockWeights = pow(abs(worldGeometryNormal), vec3(4.));
+	rockWeights /= dot(rockWeights, vec3(1.));
+	vec3 rockAlbedo = texture2D(tMap2, rockPosition.zy * vec2(1., 2.4)).rgb * rockWeights.x;
+	rockAlbedo += texture2D(tMap2, rockPosition.xz).rgb * rockWeights.y;
+	rockAlbedo += texture2D(tMap2, rockPosition.xy * vec2(1., 2.4)).rgb * rockWeights.z;
+	rockAlbedo = adjustSaturation(rockAlbedo, .4) * vec3(.8, .89, 1.);
+	rockAlbedo = max(vec3(0.), (rockAlbedo - .3) * 1.5 + .3) * .8;
+
 			/* HOMEPAGE & TRADING */
-	vec4 hoTraSample = mix(1.3 * secondColorMapSample, baseColorMapSample, mixMapSample.r);
+	vec4 rockSample = 1.3 * secondColorMapSample;
+	rockSample.rgb = mix(rockSample.rgb, rockAlbedo, .8 * homepage);
+	vec4 hoTraSample = mix(rockSample, baseColorMapSample, snowCover);
 
 			/** CAPITAL **/
 	vec4 capitalSample = mix(secondColorMapSample * .6, baseColorMapSample, mixMapSample.r);
@@ -482,7 +502,7 @@ void main() {
 		/* Rock Normal */
 	mat3 tbn2 = getTangentFrame(-vViewPosition, normal, vNormalMapUv);
 	vec3 nTex2 = texture2D(tRockNormal, vNormalMapUv * 30.).rgb * 2. - 1.;
-	nTex2.xy *= mix((2. + (4. * trading)) * (1. - mixMapSample.r * (homepage + trading)), 0.3 + .4 * mouse, capital);
+	nTex2.xy *= mix((2. + (4. * trading)) * (1. - snowCover * snowy), 0.3 + .4 * mouse, capital);
 	normal = normalize(tbn2 * nTex2);
 
 	#define SIXTY_NORMALMAP_AREA
@@ -502,8 +522,10 @@ void main() {
 	if(uPage < 1.5) {
 		perturbedNormal = perturbNormalArb(-vViewPosition, normal, dHdxy_fwd(tPerlin, vUv * 10., 2. * smoothstep(.7, .4, snowCloud)));
 		if(trading == 1.) {
-			perturbedNormal = perturbNormalArb(-vViewPosition, perturbedNormal, dHdxy_fwd(tPerlin, vec2(4., 12.) * vUv, 9. * (1. - mixMapSample.r)));
+			perturbedNormal = perturbNormalArb(-vViewPosition, perturbedNormal, dHdxy_fwd(tPerlin, vec2(4., 12.) * vUv, 9. * (1. - snowCover)));
 		}
+			/* Realism: fine wind-packed ripples on the snow */
+		perturbedNormal = perturbNormalArb(-vViewPosition, perturbedNormal, dHdxy_fwd(tPerlin, vec2(38., 14.) * vUv, .6 * snowCover));
 	} else {
 		perturbedNormal = perturbNormalArb(-vViewPosition, normal, dHdxy_fwd(tMap2, vUv * 15., 3.5 * (1. - capital * mixMapSample.r)));
 		if(maritime == 1.) {
@@ -512,6 +534,15 @@ void main() {
 	}
 
 	normal = mix(perturbedNormal, transitionNormal, transitionWave);
+
+		/* Realism: sun-side relief of the detail normals, lit from the sun baked into the page lightmap */
+	vec3 sunDirection = normalize(mix(vec3(.22, .6, .76), vec3(.95, .12, -.27), trading));
+	sunDirection = normalize((viewMatrix * vec4(sunDirection, 0.)).xyz);
+	float relief = dot(normal, sunDirection) - dot(normalize(vNormal), sunDirection);
+	diffuseColor.rgb *= max(0., 1. + snowy * (1. - transitionWave) * (.75 + .35 * homepage + .65 * (1. - snowCover)) * relief);
+		/* Realism: snow settles on the flatter ledges of the bare rock */
+	float ledges = smoothstep(.6, .82, normalize((vec4(normal, 0.) * viewMatrix).xyz).y);
+	diffuseColor.rgb = mix(diffuseColor.rgb, vec3(.96, .97, 1.), .85 * ledges * (1. - snowCover) * homepage * (1. - transitionWave));
 
 	diffuseColor.rgb *= armSample.rgb; /* Lightmap */
 

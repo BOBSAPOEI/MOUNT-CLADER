@@ -35,6 +35,7 @@ export class HomepagePeaksMaterial extends PBRMaterial {
     u.uFogFar = mountain.uniforms.uFogFar;
     u.tNoise = { value: Assets.get("noise") };
     u.tPerlin = { value: Assets.get("perlinNoise") };
+    u.tRock = { value: Assets.get("snowyRock") };
     u.tMouse = { value: mouseTexture() };
     this.transparent = true;
     u.uChapter = GLOBAL.uChapter;

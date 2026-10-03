@@ -37,7 +37,7 @@ export function GlobalConnectivity() {
           from="rgba(255,255,255,0.3)"
           to="#ffffff"
         >
-          Established in the world’s major trade hubs and financial markets with over 15 global offices, we connect and serve both emerging and mature markets worldwide.
+          Established in the world’s major media and business hubs, we connect brands with audiences in both emerging and mature markets worldwide.
         </ScrubText>
       </div>
       {CITIES.map((c) => (

@@ -10,13 +10,13 @@ export const PAGE_LOADERS: Record<PageKey, () => Promise<new () => Page>> = {
   FortEnergy: () => import("./FortEnergy").then((m) => m.FortEnergyPage),
 };
 
-/** Route of each page (the original's `cn`), and the reverse lookup. */
+/** Route of each page (the original's `cn`), and the reverse lookup. The keys keep the original scene names. */
 export const PAGE_PATHS: Record<PageKey, string> = {
   Homepage: "/",
-  Trading: "/trading",
-  Capital: "/capital",
-  Maritime: "/maritime",
-  FortEnergy: "/fort-energy",
+  Trading: "/digital",
+  Capital: "/content",
+  Maritime: "/media",
+  FortEnergy: "/data",
 };
 
 export function pageKeyFromPath(pathname: string): PageKey | null {
