@@ -12,11 +12,11 @@ export function WhoWeAre() {
           from="#81a0bb"
           to="#2d628c"
         >
-          Calder is a global marketing and brand communications group.
+          Calder is a global marketing group built for ambitious brands.
         </ScrubText>
         <div className="dk:col-start-5 dk:col-end-13 wide:col-start-7">
           <Reveal className="fs-s1 text-navy">
-            <p>We plan, create, and run marketing for ambitious brands. We combine strategy, content, media, and data, with integrity and efficiency, to create long-term value for our clients.</p>
+            <p>We plan, create, and run campaigns that grow businesses. We combine strategy, content, media, and data, with integrity and efficiency, to create long-term value for our clients.</p>
           </Reveal>
           <Reveal className="mt-11 dk:mt-[5.75rem]">
             <LinkBlock href="/who-we-are/" label="Who we are" />

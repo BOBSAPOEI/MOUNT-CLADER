@@ -69,6 +69,14 @@
     letter-spacing: 0.025rem;
   }
 
+  /* The narrowest phones (320px wide): keep the longest heading words inside the column. */
+  @media (max-width: 22.4em) {
+    .fs-h2 {
+      font-size: 2rem;
+      letter-spacing: 0.06rem;
+    }
+  }
+
   @media (min-width: 64em) {
     .fs-h1 {
       font-family: "Josefin Sans", sans-serif;
