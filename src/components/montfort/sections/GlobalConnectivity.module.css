@@ -40,6 +40,7 @@
   border-radius: 50%;
 }
 
-.point.visible span {
+/* `visible` is toggled by the engine's globe while the city faces the camera. */
+.point:global(.visible) span {
   opacity: 1;
 }

@@ -24,7 +24,7 @@ export function Equality() {
         We strive to create an environment where everyone can thrive and contribute to our success.
       </Reveal>
       <Reveal className="fs-body text-white dk:col-start-12 dk:col-end-23 wide:col-start-13 wide:col-end-22">
-        We are proud that our staff come from almost 27 nationalities across five continents. We are committed to equality, with over 35% of our global team being female. We are proud to share that over 22% of our management team are women, reflecting our dedication to empowering women in leadership.
+        Our people come from many nationalities and backgrounds, bringing diverse perspectives to every brief. We are committed to equality at every level, from our studios to our leadership team, and we actively support women into leadership roles across marketing, creative, and technology.
       </Reveal>
     </section>
   );
