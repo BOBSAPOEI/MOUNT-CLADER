@@ -45,9 +45,11 @@ export function ScrubText({ as: Tag = "h2", className = "", from, to, children }
     const paint = () => {
       raf = 0;
       const vh = window.innerHeight;
+      // On phones a headline spans most of the screen, so its lines finish colouring soon after they appear.
+      const phone = window.innerWidth < 768;
       for (const line of lines) {
         const top = line[0].getBoundingClientRect().top;
-        const p = (vh * 0.92 - top) / (vh * 0.3);
+        const p = phone ? (vh - top) / (vh * 0.2) : (vh * 0.92 - top) / (vh * 0.3);
         const color = mixColor(a, b, p);
         for (const w of line) w.style.color = color;
       }
@@ -82,7 +84,7 @@ export function ScrubText({ as: Tag = "h2", className = "", from, to, children }
   }, [from, to]);
 
   return (
-    <Tag ref={root} className={className}>
+    <Tag ref={root} className={className} data-scrub-light={/^(#fff(fff)?|white)$/i.test(to) ? "" : undefined}>
       {children.split(" ").map((word, i) => (
         <span key={i} data-w style={{ color: from }}>
           {i > 0 ? " " : ""}

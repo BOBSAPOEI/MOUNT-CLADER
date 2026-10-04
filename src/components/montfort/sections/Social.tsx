@@ -44,7 +44,7 @@ export function Social() {
           OUR PLEDGE TO CORPORATE SOCIAL RESPONSIBILITY
         </ScrubText>
         <Reveal as="p" className="fs-s1 mb-20 text-white dk:col-start-12 dk:col-end-23 dk:mb-[9.625rem] wide:col-start-13 wide:col-end-22">
-          Giving back to our communities is an imperative part of the work we do. Montfort Group’s CSR efforts are centered around three pillars: supporting education, alleviating poverty, and empowering women.
+          Giving back to our communities is an imperative part of the work we do. Calder Group’s CSR efforts are centered around three pillars: supporting education, alleviating poverty, and empowering women.
         </Reveal>
       </div>
       <div className="mf-grid-bleed dk:grid">

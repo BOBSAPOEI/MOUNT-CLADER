@@ -47,9 +47,9 @@ export function Footer() {
         </div>
         <div className={`${styles.line} dk:col-start-3 dk:col-end-24 wide:col-start-4 wide:col-end-21`} />
         <div className={`${styles.legal} dk:col-start-3 dk:col-end-10 ml:col-end-9 wide:col-start-4 wide:col-end-10`}>
-          <FooterLogo width={311} height={37} />
+          <FooterLogo width={243} height={37} />
         </div>
-        <p className={`${styles.copyright} fs-body-s dk:col-start-3 dk:col-end-24 ml:col-start-10 wide:col-start-11 wide:col-end-21`}>© 2021 | Montfort - All rights reserved</p>
+        <p className={`${styles.copyright} fs-body-s dk:col-start-3 dk:col-end-24 ml:col-start-10 wide:col-start-11 wide:col-end-21`}>© 2021 | Calder - All rights reserved</p>
       </div>
     </footer>
   );

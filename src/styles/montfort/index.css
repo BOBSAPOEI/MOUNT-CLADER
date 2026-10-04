@@ -2,6 +2,7 @@
 @import "./tokens.css";
 @import "./typography.css";
 @import "./grid.css";
+@import "./mobile.css";
 
 @layer base {
   html {

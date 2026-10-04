@@ -57,6 +57,8 @@
 }
 
 .office h2 {
+  max-width: 6.875rem;
+  min-height: 4rem;
   margin-bottom: 1.5rem;
   color: #2d628c;
   font-size: 1.25rem;
@@ -68,7 +70,7 @@
 .address {
   margin-bottom: 1rem;
   color: #81a0bb;
-  white-space: pre-line;
+  white-space: pre-wrap;
 }
 
 .contact a {
@@ -95,4 +97,38 @@
   text-align: right;
   opacity: 0.5;
   align-self: end;
+}
+
+/* Phones: the three offices no longer fit side by side, so they stack under the links. */
+@media (max-width: 47.99em) {
+  .footer {
+    padding: 6.25rem 0 4rem;
+  }
+
+  .right {
+    flex-direction: column;
+    gap: 3.5rem;
+    margin-top: 5rem;
+  }
+
+  .office {
+    gap: 1.5rem;
+    width: auto;
+  }
+
+  .line {
+    margin-top: 4rem;
+  }
+
+  .copyright {
+    text-align: left;
+    align-self: start;
+  }
+}
+
+/* Tablets: offices stay in one row under the links. */
+@media (min-width: 48em) and (max-width: 63.99em) {
+  .right {
+    margin-top: 5rem;
+  }
 }

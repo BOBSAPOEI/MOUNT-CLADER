@@ -9,7 +9,7 @@ import { ReadMore } from "../ui/ReadMore";
 import { SOLUTION_ICONS } from "../ui/solution-icons";
 import styles from "./Solutions.module.css";
 
-/** Chapter 2: sustainable energy solutions with Environmental / Social / Governance tabs. */
+/** Chapter 2: responsible marketing solutions with Environmental / Social / Governance tabs. */
 export function Solutions() {
   const [active, setActive] = useState(0);
   let iconIndex = 0;
@@ -28,7 +28,7 @@ export function Solutions() {
           from="rgba(255,255,255,0.3)"
           to="#ffffff"
         >
-          DELIVERING SUSTAINABLE ENERGY SOLUTIONS
+          DELIVERING RESPONSIBLE MARKETING SOLUTIONS
         </ScrubText>
       </div>
       <div className="mf-grid-bleed">
@@ -36,7 +36,7 @@ export function Solutions() {
           <Reveal>
             <ReadMore lines={7} tone="grey" textClassName="fs-body text-white">
               <p>
-                We are dedicated to fostering a future where energy is both sustainable and accessible. Our strategy includes innovative practices to reduce environmental impact and promote renewable energy sources. By connecting people, ingenuity, and resources with a shared vision of value and prosperity, we aim to create a resilient energy ecosystem. This includes optimizing supply chains, investing in clean energy projects, and adhering to high environmental standards. Through these efforts, we drive sustainable growth and positively impact the global energy landscape.
+                We are dedicated to fostering a future where marketing is both responsible and effective. Our strategy includes innovative practices to reduce the environmental impact of production and media, and to promote honest, inclusive advertising. By connecting people, ingenuity, and resources with a shared vision of value and prosperity, we aim to create a resilient marketing ecosystem. This includes optimizing media supply chains, choosing greener production partners, and adhering to high environmental standards. Through these efforts, we drive sustainable growth and positively impact the global marketing landscape.
               </p>
             </ReadMore>
           </Reveal>

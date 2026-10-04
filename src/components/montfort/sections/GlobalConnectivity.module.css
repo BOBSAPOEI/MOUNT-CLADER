@@ -8,6 +8,14 @@
   cursor: grabbing;
 }
 
+/* Phones: less empty scrolling before the headline; the globe rises over a shorter distance. */
+@media (max-width: 47.99em) {
+  .section {
+    min-height: calc(230 * var(--lvh));
+    padding-top: calc(110 * var(--lvh));
+  }
+}
+
 .title {
   margin-bottom: 8.75rem;
   color: #fff;
@@ -40,6 +48,7 @@
   border-radius: 50%;
 }
 
-.point.visible span {
+/* `visible` is toggled by the engine's globe while the city faces the camera. */
+.point:global(.visible) span {
   opacity: 1;
 }

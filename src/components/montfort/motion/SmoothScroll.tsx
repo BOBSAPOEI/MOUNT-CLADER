@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
+import { setLenis } from "./lenis";
 
 /** Lenis smooth scrolling. `locked` freezes the page (e.g. while the menu overlay is open). */
 export function SmoothScroll({ locked = false }: { locked?: boolean }) {
@@ -10,6 +11,7 @@ export function SmoothScroll({ locked = false }: { locked?: boolean }) {
   useEffect(() => {
     const instance = new Lenis({ lerp: 0.1 });
     lenis.current = instance;
+    setLenis(instance);
     let raf = 0;
     const tick = (t: number) => {
       instance.raf(t);
@@ -23,6 +25,7 @@ export function SmoothScroll({ locked = false }: { locked?: boolean }) {
       window.removeEventListener("mf:scroll-top", top);
       instance.destroy();
       lenis.current = null;
+      setLenis(null);
     };
   }, []);
 
