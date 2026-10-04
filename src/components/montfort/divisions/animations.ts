@@ -358,6 +358,8 @@ class Title extends Animation {
 
   private async splitAndRefresh() {
     this.split?.revert();
+    // Phones skip the scrubbed reveal, so show the headline in its final colour rather than the faded start.
+    this.el.style.color = isMobile() ? this.params.color || "#2d628c" : "";
     if (isMobile()) return;
     await fontsReady();
     this.split = new SplitText(this.el, { type: "lines, chars, words" });

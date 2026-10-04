@@ -69,11 +69,29 @@
     letter-spacing: 0.025rem;
   }
 
-  /* The narrowest phones (320px wide): keep the longest heading words inside the column. */
-  @media (max-width: 22.4em) {
+  /* Phones: smaller display headings and calmer tracking on running text, for comfortable reading. */
+  @media (max-width: 47.99em) {
     .fs-h2 {
-      font-size: 2rem;
+      font-size: 1.75rem;
+      line-height: 1.32;
       letter-spacing: 0.06rem;
+    }
+    .fs-h3 {
+      font-size: 1.5rem;
+      line-height: 1.35;
+      letter-spacing: 0.08rem;
+    }
+    .fs-s1 {
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+    .fs-body {
+      line-height: 1.7;
+      letter-spacing: 0.01rem;
+    }
+    .fs-body-s {
+      font-size: 0.8125rem;
+      letter-spacing: 0.02rem;
     }
   }
 

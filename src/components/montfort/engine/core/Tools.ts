@@ -54,9 +54,11 @@ export class Viewport {
     const i = this.infos;
     i.width = width;
     i.height = height;
-    i.dpr = Math.min(2, window.devicePixelRatio);
     i.ratio = width / height;
     i.breakpoint = window.innerWidth < BREAKPOINTS.tablet ? "mobile" : window.innerWidth < BREAKPOINTS.desktop ? "tablet" : "desktop";
+    // Phones render at up to 1.5x instead of the original 2x: the scenes are soft by design, and drawing 44%
+    // fewer pixels keeps scrolling smooth on iPhones.
+    i.dpr = Math.min(i.breakpoint === "mobile" ? 1.5 : 2, window.devicePixelRatio);
     VIEWPORT.uRatio.value = i.ratio;
     VIEWPORT.uDPR.value = i.dpr;
     VIEWPORT.uResolution.value.set(i.width * i.dpr, i.height * i.dpr);

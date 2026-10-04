@@ -11,6 +11,13 @@
   opacity: 0;
 }
 
+/* Phones scroll to the top natively (tap the status bar); the floating button only covered the copy. */
+@media (max-width: 47.99em) {
+  .container {
+    display: none;
+  }
+}
+
 .faded .button {
   pointer-events: none;
 }
