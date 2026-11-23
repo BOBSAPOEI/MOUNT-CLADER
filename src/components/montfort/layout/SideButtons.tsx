@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { ScrollTopIcon } from "../ui/icons";
 import { type Theme, useThemeAt } from "../motion/useChapterTheme";
 import styles from "./SideButtons.module.css";
+import { SoundToggle } from "./SoundToggle";
 
 const probe = (vh: number) => vh - 100;
 
 /**
- * Fixed scroll-to-top button in the bottom-right corner. Its ink follows the page theme (division pages pass
- * theirs; the homepage follows the chapter under the button).
+ * Fixed scroll-to-top and ambient-sound buttons in the bottom-right corner (tablets and up; phones get the sound
+ * toggle in the header). Their ink follows the page theme (division pages pass theirs; the homepage follows the
+ * chapter under the buttons).
  */
 export function SideButtons({ theme: pageTheme }: { theme?: Theme } = {}) {
   const probedTheme = useThemeAt(probe);
@@ -36,6 +38,7 @@ export function SideButtons({ theme: pageTheme }: { theme?: Theme } = {}) {
           <button className={`${styles.button} ${styles.top} ${visible ? styles.visible : ""}`} onClick={() => window.dispatchEvent(new Event("mf:scroll-top"))} aria-label="Scroll to top" data-cursor="clickable">
             <ScrollTopIcon />
           </button>
+          <SoundToggle className={`${styles.button} ${styles.sound}`} />
         </div>
       </div>
     </div>

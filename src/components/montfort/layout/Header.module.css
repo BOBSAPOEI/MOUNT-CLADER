@@ -168,6 +168,29 @@
   height: 100%;
 }
 
+/* Phones only: tablets and desktops have the sound button in the bottom-right corner. */
+.sound {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: #2d628c;
+  cursor: pointer;
+  transition: color 0.4s linear;
+}
+
+.sound canvas {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 47.99em) {
+  .sound {
+    display: flex;
+  }
+}
+
 .menu {
   display: flex;
   align-items: center;
@@ -266,6 +289,7 @@
 
 /* Light ink on dark backdrops. */
 .header[data-theme="light"] .link,
+.header[data-theme="light"] .sound,
 .header[data-theme="light"] .menu p {
   color: #fff;
 }

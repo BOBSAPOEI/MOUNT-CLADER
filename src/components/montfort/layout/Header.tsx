@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { NAV } from "@/lib/montfort/content";
 import { type Theme, useThemeAt } from "../motion/useChapterTheme";
 import styles from "./Header.module.css";
+import { SoundToggle } from "./SoundToggle";
 
 interface HeaderProps {
   menuOpen: boolean;
@@ -16,7 +17,7 @@ interface HeaderProps {
 
 const probe = () => 70;
 
-/** Fixed top bar: division links with a sliding underline, news counter and menu toggle. */
+/** Fixed top bar: division links with a sliding underline, the sound toggle on phones, and the menu toggle. */
 export function Header({ menuOpen, onToggleMenu, active = 0, theme: pageTheme }: HeaderProps) {
   const probedTheme = useThemeAt(probe);
   const theme = pageTheme ?? probedTheme;
@@ -71,6 +72,7 @@ export function Header({ menuOpen, onToggleMenu, active = 0, theme: pageTheme }:
             <div className={styles.navbar} style={{ left: bar.left, width: bar.width }} />
           </div>
           <div className={styles.right}>
+            <SoundToggle className={styles.sound} />
             <button className={`${styles.menu} ${menuOpen ? styles.close : ""}`} onClick={onToggleMenu} aria-expanded={menuOpen} data-cursor="clickable">
               <p>
                 <span>{menuOpen ? "Close" : "Menu"}</span>

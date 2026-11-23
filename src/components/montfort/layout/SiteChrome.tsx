@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PAGES } from "../engine/globals";
 import { pageKeyFromPath } from "../engine/pages";
 import { SmoothScroll } from "../motion/SmoothScroll";
@@ -9,10 +9,11 @@ import { Cursor } from "./Cursor";
 import { Header } from "./Header";
 import { Menu } from "./Menu";
 import { SideButtons } from "./SideButtons";
+import { armAmbientSound } from "./ambientSound";
 
 /**
  * Fixed UI that persists across pages (rendered once by the root layout): smooth scroll, header, menu overlay,
- * side buttons and cursor. The current page comes from the route; division pages use white ink ("light"),
+ * side buttons, cursor and the ambient sound (so it keeps playing across pages). The current page comes from the route; division pages use white ink ("light"),
  * as the original sets it from the path, while the homepage follows the chapter under the header.
  */
 export function SiteChrome() {
@@ -22,6 +23,8 @@ export function SiteChrome() {
   const key = pageKeyFromPath(usePathname());
   const active = key ? PAGES.indexOf(key) : -1;
   const theme = key && key !== "Homepage" ? "light" : undefined;
+
+  useEffect(() => armAmbientSound(), []);
 
   return (
     <>

@@ -11,7 +11,8 @@
   opacity: 0;
 }
 
-/* Phones scroll to the top natively (tap the status bar); the floating button only covered the copy. */
+/* Phones scroll to the top natively (tap the status bar) and have the sound toggle in the header; floating
+   buttons only covered the copy. */
 @media (max-width: 47.99em) {
   .container {
     display: none;
@@ -92,4 +93,9 @@
 
 .top svg {
   height: 12px;
+}
+
+.sound canvas {
+  width: 24px;
+  height: 24px;
 }
