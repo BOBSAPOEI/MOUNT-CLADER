@@ -16,13 +16,13 @@ export function WhatWeDo() {
             from="#81a0bb"
             to="#2d628c"
           >
-            We provide marketing solutions with integrity and efficiency through our different business divisions.
+            Four specialist divisions. One clear view of growth.
           </ScrubText>
           <div className="tb:col-start-2 dk:col-start-14 dk:col-end-22 wide:col-start-15 wide:col-end-21">
             <Reveal>
               <ReadMore lines={4} tone="secondary" textClassName="text-navy">
                 <p className="fs-s1">
-                  Calder&apos;s interlinked divisions complement each other, providing integrated services that leverage their combined expertise. This synergy enhances our operational efficiency, enabling us to drive collective success for brands worldwide and deliver exceptional value to our stakeholders.
+                  Each division is an expert in its own field, yet all four share one team, one data set and one plan. That means fewer hand-offs, faster decisions and campaigns that keep learning from each other.
                 </p>
               </ReadMore>
             </Reveal>

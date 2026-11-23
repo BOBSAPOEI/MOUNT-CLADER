@@ -2,7 +2,7 @@ import { ScrubText } from "../motion/ScrubText";
 import { Reveal } from "../motion/Reveal";
 import { LinkBlock } from "../ui/LinkBlock";
 
-/** "Who we are" intro: statement headline, short paragraph and link. */
+/** Intro: statement headline, short paragraph and a link down to the divisions. */
 export function WhoWeAre() {
   return (
     <section id="WhoWeAre" data-chapter="WhoWeAre" data-chapter-theme="dark" className="py-24 dk:py-40">
@@ -12,14 +12,14 @@ export function WhoWeAre() {
           from="#81a0bb"
           to="#2d628c"
         >
-          Calder is a global marketing group built for ambitious brands.
+          Calder helps ambitious brands rise above the noise.
         </ScrubText>
         <div className="dk:col-start-5 dk:col-end-13 wide:col-start-7">
           <Reveal className="fs-s1 text-navy">
-            <p>We plan, create, and run campaigns that grow businesses. We combine strategy, content, media, and data, with integrity and efficiency, to create long-term value for our clients.</p>
+            <p>We are a marketing group of strategists, storytellers, media planners and data specialists. Together we find the clearest route from attention to growth, then stay with you all the way up.</p>
           </Reveal>
           <Reveal className="mt-11 dk:mt-[5.75rem]">
-            <LinkBlock href="/who-we-are/" label="Who we are" />
+            <LinkBlock href="/#WhatWeDo" label="Our divisions" />
           </Reveal>
         </div>
       </div>

@@ -57,3 +57,8 @@
     width: calc(50% - 2.5rem);
   }
 }
+
+/* Each principle opens with its short title in bold. */
+.principle {
+  font-weight: 700;
+}

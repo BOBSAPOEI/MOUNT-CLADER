@@ -10,6 +10,7 @@ import styles from "./Social.module.css";
 const img = (file: string) => `${ASSET}/images/${file}`;
 
 function Logos({ pillar }: { pillar: Pillar }) {
+  if (!pillar.logos.length) return null;
   return (
     <div className={styles.logos}>
       {pillar.logos.map((l) => (
@@ -22,7 +23,7 @@ function Logos({ pillar }: { pillar: Pillar }) {
   );
 }
 
-/** Chapter 4: CSR pillars shown as a three-slide carousel with synced copy. */
+/** Chapter 4: "Giving back", three programs shown as a carousel with synced copy. */
 export function Social() {
   const [active, setActive] = useState(0);
   const position = (i: number) => (i === active ? "active" : i === (active + 1) % PILLARS.length ? "next" : "prev");
@@ -41,10 +42,10 @@ export function Social() {
           from="rgba(255,255,255,0.3)"
           to="#ffffff"
         >
-          OUR PLEDGE TO CORPORATE SOCIAL RESPONSIBILITY
+          Giving back
         </ScrubText>
         <Reveal as="p" className="fs-s1 mb-20 text-white dk:col-start-12 dk:col-end-23 dk:mb-[9.625rem] wide:col-start-13 wide:col-end-22">
-          Giving back to our communities is an imperative part of the work we do. Calder Group’s CSR efforts are centered around three pillars: supporting education, alleviating poverty, and empowering women.
+          We give what we do best — strategy, creativity and media — to causes in three areas.
         </Reveal>
       </div>
       <div className="mf-grid-bleed dk:grid">
@@ -57,7 +58,7 @@ export function Social() {
                   src={img(p.image.w682)}
                   srcSet={`${img(p.image.w260)} 260w, ${img(p.image.w400)} 400w, ${img(p.image.w682)} 682w`}
                   sizes="(max-width: 768px) 260px, (max-width: 1024px) 400px, 682px"
-                  alt={`Slide ${i + 1}`}
+                  alt={p.label}
                   width={682}
                   height={392}
                   draggable={false}
@@ -80,7 +81,7 @@ export function Social() {
         </div>
         <div className={`${styles.copy} dk:col-start-11 dk:col-end-22 wide:col-start-13 wide:col-end-22`}>
           {PILLARS.map((p, i) => (
-            <div key={p.label} className={`${styles.copyItem} ${i === active ? styles.active : ""}`} style={i === 0 ? { position: "relative" } : undefined}>
+            <div key={p.label} className={`${styles.copyItem} ${i === active ? styles.active : ""}`}>
               <h3 className={`${styles.label} fs-label text-white`}>{p.label}</h3>
               <p className={`${styles.body} fs-body text-white`}>{p.body}</p>
               <Logos pillar={p} />

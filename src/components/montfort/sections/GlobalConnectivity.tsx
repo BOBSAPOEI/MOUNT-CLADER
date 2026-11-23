@@ -37,7 +37,7 @@ export function GlobalConnectivity() {
           from="rgba(255,255,255,0.3)"
           to="#ffffff"
         >
-          Established in the world’s major media and business hubs, we connect brands with audiences in both emerging and mature markets worldwide.
+          From Jakarta to London, our teams launch campaigns wherever your audience lives.
         </ScrubText>
       </div>
       {CITIES.map((c) => (

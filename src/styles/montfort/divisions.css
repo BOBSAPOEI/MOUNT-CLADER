@@ -1147,10 +1147,11 @@ h2[data-mf-fort-energy] {
   }
 }
 
+/* Heading first, then its one-line summary, on every screen size. */
 .advantages-informations[data-mf-fort-energy] {
   display: flex;
-  flex-direction: column-reverse;
-  gap: 8.75rem
+  flex-direction: column;
+  gap: 1.75rem
 }
 
 @media (min-width:48em) {

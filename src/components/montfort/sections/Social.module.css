@@ -176,15 +176,16 @@
   }
 }
 
-.copy {
-  position: relative;
+/* Desktop: all copy items share one grid cell, so the block is as tall as the longest slide and never jumps. */
+@media (min-width: 64em) {
+  .copy {
+    display: grid;
+  }
 }
 
 .copyItem {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  grid-area: 1 / 1;
+  align-self: start;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.5s linear;
@@ -203,6 +204,10 @@
 
 .body {
   margin-bottom: 3.25rem;
+}
+
+.body:last-child {
+  margin-bottom: 0;
 }
 
 .logos {

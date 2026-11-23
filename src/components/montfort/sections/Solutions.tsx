@@ -9,7 +9,7 @@ import { ReadMore } from "../ui/ReadMore";
 import { SOLUTION_ICONS } from "../ui/solution-icons";
 import styles from "./Solutions.module.css";
 
-/** Chapter 2: responsible marketing solutions with Environmental / Social / Governance tabs. */
+/** Chapter 2: "Responsible by design", with Environmental / Social / Governance tabs. */
 export function Solutions() {
   const [active, setActive] = useState(0);
   let iconIndex = 0;
@@ -28,7 +28,7 @@ export function Solutions() {
           from="rgba(255,255,255,0.3)"
           to="#ffffff"
         >
-          DELIVERING RESPONSIBLE MARKETING SOLUTIONS
+          Responsible by design
         </ScrubText>
       </div>
       <div className="mf-grid-bleed">
@@ -36,7 +36,7 @@ export function Solutions() {
           <Reveal>
             <ReadMore lines={7} tone="grey" textClassName="fs-body text-white">
               <p>
-                We are dedicated to fostering a future where marketing is both responsible and effective. Our strategy includes innovative practices to reduce the environmental impact of production and media, and to promote honest, inclusive advertising. By connecting people, ingenuity, and resources with a shared vision of value and prosperity, we aim to create a resilient marketing ecosystem. This includes optimizing media supply chains, choosing greener production partners, and adhering to high environmental standards. Through these efforts, we drive sustainable growth and positively impact the global marketing landscape.
+                Good marketing should leave the world a little better than it found it. We plan campaigns that waste less, reach people with respect and reflect the communities they speak to, and we track our progress as closely as we track results.
               </p>
             </ReadMore>
           </Reveal>

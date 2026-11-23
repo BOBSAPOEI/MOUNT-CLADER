@@ -67,14 +67,12 @@
   text-transform: uppercase;
 }
 
-.address {
+.role {
   margin-bottom: 1rem;
   color: #81a0bb;
-  white-space: pre-wrap;
 }
 
-.contact a {
-  display: block;
+.focus {
   color: #2d628c;
 }
 
@@ -112,8 +110,18 @@
   }
 
   .office {
-    gap: 1.5rem;
+    gap: 0.5rem;
     width: auto;
+  }
+
+  .office h2 {
+    max-width: none;
+    min-height: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .role {
+    margin-bottom: 0;
   }
 
   .line {

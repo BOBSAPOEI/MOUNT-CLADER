@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Calder Group",
-  description: "Calder is a global marketing group: brand content, digital performance, media and data.",
+  description: "Calder is a marketing group that helps ambitious brands rise above the noise, with digital performance, content, media and data under one roof.",
 };
 
 export default function RootLayout({

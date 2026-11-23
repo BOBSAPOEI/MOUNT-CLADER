@@ -24,10 +24,10 @@ export function Hero() {
         <div className={styles.cta}>
           <div className={styles.ctaMobile}>
             <ScrollDownIcon />
-            <span className="fs-cta-s">Swipe down</span>
+            <span className="fs-cta-s">Swipe to explore</span>
           </div>
           <div className={styles.ctaDesktop}>
-            <span className="fs-cta-s">Scroll down to discover</span>
+            <span className="fs-cta-s">Scroll to explore</span>
           </div>
         </div>
       </div>
