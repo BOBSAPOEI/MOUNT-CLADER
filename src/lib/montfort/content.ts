@@ -1,54 +1,75 @@
 export const ASSET = "/montfort";
 
+/** The four divisions: header and menu name, and the one-line promise shown on the homepage and each hero. */
 export const DIVISIONS = [
-  { href: "/trading/", name: "Montfort Trading", title: "Operating Efficiently by Leading with Innovation." },
-  { href: "/capital/", name: "Montfort Capital", title: "Identify and seize opportunities that maximise Value" },
-  { href: "/maritime/", name: "Montfort Maritime", title: "Powering Progress, Delivering Energy." },
-  { href: "/fort-energy/", name: "Fort Energy", title: "Advancing Innovation in Energy Investments" },
+  { href: "/digital/", name: "Calder Digital", title: "Performance that compounds, channel after channel." },
+  { href: "/content/", name: "Calder Content", title: "Stories people stop for, share and remember." },
+  { href: "/media/", name: "Calder Media", title: "The right audience, at the right moment." },
+  { href: "/data/", name: "Calder Data", title: "Measurement you can trust. Insight you can use." },
 ] as const;
 
-export const NAV = [{ href: "/", name: "Montfort Group" }, ...DIVISIONS.map((d) => ({ href: d.href, name: d.name }))];
-export const TERMS = [
-  { href: "/contact/", name: "Contact" },
-  { href: "/#Sustainability", name: "ESG" },
-  { href: "/privacy-policy/", name: "Privacy policy" },
-  { href: "/terms-of-use/", name: "Terms of use" },
-];
+export const NAV = [{ href: "/", name: "Calder Group" }, ...DIVISIONS.map((d) => ({ href: d.href, name: d.name }))];
+/** Secondary links (footer, menu). Only pages that exist in this site are listed. */
+export const TERMS = [{ href: "/#Sustainability", name: "Responsibility" }];
 
+/** Footer offices. Street addresses, phone numbers and e-mail are left out until Calder's real details are known. */
 export const OFFICES = [
-  { name: "Geneva, Switzerland", address: "3rd & 4th floor\nRue du Mont-Blanc 14\n1201 Geneva, Switzerland", phone: "+41 227415900", tel: "+41227415900", email: "gva.reception@mont-fort.com" },
-  { name: "Dubai, UAE", address: "1104 ICD Brookfield Place\nDubai International Financial Centre\nDubai, United Arab Emirates", phone: "+971 45914032", tel: "+97145914032", email: "uae.reception@mont-fort.com" },
-  { name: "Singapore", address: "0804 Marina One East Tower\n7 Straits View\n018936, Singapore", phone: "+65 3105 1583", tel: "+6531051583", email: "sing.reception@mont-fort.com" },
+  { name: "Jakarta, Indonesia", role: "Group headquarters", focus: "Strategy, content and data" },
+  { name: "Singapore", role: "Asia-Pacific hub", focus: "Digital performance and media" },
+  { name: "Dubai, UAE", role: "Middle East hub", focus: "Media and partnerships" },
 ];
 
+/** Labels placed on the 3D globe (visible while they face the camera). */
 export const CITIES = [
-  { name: "Switzerland", lon: 4, lat: 46.818188 },
-  { name: "Denmark", lon: 10, lat: 56 },
-  { name: "Istanbul", lon: 24, lat: 41.00824 },
-  { name: "United Arab Emirates", lon: 54.35495, lat: 24.48818 },
-  { name: "Nairobi", lon: 36.828842, lat: -1.3026148 },
-  { name: "Dar es Salam", lon: 39.2803583, lat: -6.8160837 },
-  { name: "Cape Town", lon: 18.4172197, lat: -33.9288301 },
-  { name: "Mumbai", lon: 72.8281049, lat: 18.9733536 },
-  { name: "Karachi", lon: 67.0207055, lat: 24.8546842 },
-  { name: "Maputo", lon: 32.56745, lat: -25.966213 },
-  { name: "Xiamen", lon: 118.0853479, lat: 24.4801069 },
-  { name: "Singapore", lon: 97, lat: 1.352083 },
+  { name: "London", lon: -0.1276, lat: 51.5072 },
+  { name: "Milan", lon: 9.19, lat: 45.4642 },
+  { name: "Istanbul", lon: 28.9784, lat: 41.0082 },
+  { name: "Cairo", lon: 31.2357, lat: 30.0444 },
+  { name: "Lagos", lon: 3.3792, lat: 6.5244 },
+  { name: "Nairobi", lon: 36.8219, lat: -1.2921 },
+  { name: "Johannesburg", lon: 28.0473, lat: -26.2041 },
+  { name: "Dubai", lon: 55.2708, lat: 25.2048 },
+  { name: "Mumbai", lon: 72.8777, lat: 19.076 },
+  { name: "Hong Kong", lon: 114.1694, lat: 22.3193 },
+  { name: "Singapore", lon: 103.8198, lat: 1.3521 },
+  { name: "Jakarta", lon: 106.8456, lat: -6.2088 },
 ];
 
+/** Responsibility tabs. Item order follows the icon set (five, five and seven icons). */
 export const SOLUTIONS = [
-  { tab: "Environmental", intro: "Reducing our impact on the environment is paramount to our business. Our environmental policies and culture focus on:", items: ["Clean Energy", "Reduced Resource Usage", "Climate Change", "Carbon Emissions", "Carbon Reduction/Offsets"] },
-  { tab: "Social", intro: "Our impact on society starts with our employees and extends to our vast network of customers, partners, and stakeholders. We place tremendous importance on:", items: ["Diversified Workforce", "Health, Safety and Security", "Human Rights and Labor Practices", "Community Impact", "Supply Chain Standards"] },
-  { tab: "Governance", intro: "Good governance is good business. We set the highest compliance standards, maintain strict policies and procedures, and adhere to international regulations. Our governance structure is supported by:", items: ["Corporate Governance Framework, supported by a centralized policy hub", "Code of Ethics", "Ethics and compliance oversight", "Multiple board and management committees to provide strategic oversight", "Risk Management Framework", "Stringent and digitized onboarding process", "Initial onboarding and annual refresher compliance trainings"] },
+  {
+    tab: "Environmental",
+    intro: "Every campaign has a footprint. We work to make ours smaller through:",
+    items: ["Renewable-powered studios", "Low-waste productions", "Climate-aware campaigns", "Measured media emissions", "Carbon reduction and offsets"],
+  },
+  {
+    tab: "Social",
+    intro: "Our influence reaches far beyond our own office. We focus on:",
+    items: ["A diverse, inclusive team", "Wellbeing and fair workloads", "Fair pay and human rights", "Pro bono work for communities", "Inclusive, respectful advertising"],
+  },
+  {
+    tab: "Governance",
+    intro: "Trust is built on structure, not slogans. Our governance includes:",
+    items: [
+      "A group-wide policy framework",
+      "A code of ethics for every employee",
+      "Independent compliance oversight",
+      "Board and management committees",
+      "Risk management in every division",
+      "Verified client and partner onboarding",
+      "Annual training for every team member",
+    ],
+  },
 ];
 
+/** How we do business: each principle is a short title and one sentence. */
 export const ETHICS = [
-  "We ensure compliance with all applicable laws and regulations across our global operations, including those of the UN, EU, Switzerland, UK, US, Singapore, and the UAE.",
-  "Prior to engaging with any counterparty, a thorough and rigorous external onboarding process is conducted for all our trade counterparties and vessels we employ.",
-  "Any products purchased, sold, or shipped by Montfort are in full compliance with all applicable laws and regulations, including those related to trade, sanctions, and anti-bribery & corruption (ABAC).",
-  "Using renowned global compliance platforms, we analyze the counterparty, their corporate structure, and their UBO.",
-  "Our processes are thoroughly in line with the leading standards and best practices of international companies.",
-  "We use our internally developed, digitized platform to onboard the counterparties. Our goal is to deliver products responsibly and reliably, upholding international standards and prioritizing health, safety, environmental, and social considerations in all our activities.",
+  { title: "Honest claims.", body: "Every claim in a Calder campaign is checked before it goes live, and we never promise what a product cannot deliver." },
+  { title: "Privacy first.", body: "We collect only the data a campaign needs, keep it secure and follow the data-protection laws of every market we work in." },
+  { title: "Brand safety.", body: "Media runs only where our clients would be proud to appear, checked by independent verification tools." },
+  { title: "Known partners.", body: "Every client, supplier and publisher passes the same onboarding checks before we work together." },
+  { title: "No bribery, ever.", body: "No gifts, fees or favors that could sway a decision, on either side of the table." },
+  { title: "Open books.", body: "Clients see where their budget goes: every fee, every placement and every result." },
 ];
 
 export interface Pillar {
@@ -59,31 +80,24 @@ export interface Pillar {
   logos: readonly { file: string; alt: string }[];
 }
 
+/** Giving back: three slides with copy of similar length, so the text block keeps its height between slides. */
 export const PILLARS: readonly Pillar[] = [
   {
-    label: "Alleviating Poverty",
-    body: "With the help of local NGOs, we support the communities where we invest. Montfort has successfully financed clean water projects, initiatives for orphaned children, earthquake relief, food distribution, and medical support for those in need.",
+    label: "Communities",
+    body: "We donate campaigns, design and media space to local charities working on clean water, food and disaster relief, so their message reaches the people who can help.",
     image: { w260: "m_Z8rUwY.png", w400: "m_Z205R7p.png", w682: "m_Z19s3SG.png" },
-    logos: [
-      { file: "m_Z1gzCkt.png", alt: "Mercy Ships Logo" },
-      { file: "m_NKDpr.png", alt: "Mercy Corps Logo" },
-      { file: "m_1cKHS.png", alt: "Kenya Red Cross" },
-      { file: "m_CQNdF.png", alt: "Emirates Red Crescent" },
-    ],
+    logos: [],
   },
   {
-    label: "Empowering Women",
-    body: "We are 'Creating Experts Through Education' in collaboration with The Doyenne Initiative, a non-profit organization that drives female experts to take on industry, education, and government leadership roles.",
+    label: "Women in Leadership",
+    body: "Mentoring, scholarships and a leadership program help women build careers in marketing, creative and technology, and take the seats where decisions are made.",
     image: { w260: "m_I3KgK.png", w400: "m_Z26602g.png", w682: "m_Z1kL9kK.png" },
-    logos: [{ file: "m_1zzaW4.png", alt: "Doyenne Initiative Logo" }],
+    logos: [],
   },
   {
-    label: "Supporting Education",
-    body: "We aim to help children secure a future for themselves through the support of education. We provide opportunities for success by building schools, funding scholarship programs and renewable energy projects, and supplying drinking water for schools.",
+    label: "Education",
+    body: "We teach digital and creative skills in schools, fund scholarships and offer paid internships in our studios, giving young people a real first step into the industry.",
     image: { w260: "m_Z1LWpJO.png", w400: "m_t4WK6.png", w682: "m_1eoNrB.png" },
-    logos: [
-      { file: "m_Z1sHDNF.png", alt: "Alsama Logo" },
-      { file: "m_W8OKs.png", alt: "Hope for Cancer Kids Logo" },
-    ],
+    logos: [],
   },
 ];

@@ -1,0 +1,148 @@
+/*
+ * Persistent WebGL layer shared by every page: the fixed canvas and the hero slideshow overlay
+ * (`.hero-transition`, the strip of division titles shown while pressing / dragging on a hero).
+ * Values are the original site's.
+ */
+#canvas-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: calc(100 * var(--lvh));
+  pointer-events: auto;
+  touch-action: none;
+}
+
+#canvas-wrapper canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-transition[data-mf-hero-transition] {
+  --slide-progress: 0;
+  --title-width: 75vw;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: calc(100 * var(--svh));
+  overflow: hidden;
+  touch-action: pan-x pan-y;
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+  opacity: 0;
+}
+
+@media (min-width: 64em) {
+  .hero-transition[data-mf-hero-transition] {
+    --title-width: 50vw;
+  }
+}
+
+.hero-transition[data-mf-hero-transition]::after {
+  position: absolute;
+  inset: 50% 0 0;
+  width: 100%;
+  height: 1px;
+  content: "";
+  background-color: #2d628c1a;
+}
+
+.hero-transition[data-mf-hero-transition]:active {
+  cursor: grabbing;
+}
+
+.hero-transition[data-mf-hero-transition] .inner {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 100%;
+  padding-left: 12.5vw;
+  pointer-events: none;
+  transform: translate(calc(var(--slide-progress) * var(--title-width) * -1));
+}
+
+@media (min-width: 64em) {
+  .hero-transition[data-mf-hero-transition] .inner {
+    padding-left: 25vw;
+  }
+}
+
+.hero-transition[data-mf-hero-transition] .title {
+  position: relative;
+  display: flex;
+  flex: 0 0 var(--title-width);
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.hero-transition[data-mf-hero-transition] .title p {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.125rem;
+  color: #2d628c;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+}
+
+@media (min-width: 64em) {
+  .hero-transition[data-mf-hero-transition] .title p {
+    font-size: 3.875rem;
+  }
+}
+
+.hero-transition[data-mf-hero-transition] .title:not(:first-child)::before {
+  position: absolute;
+  left: -2px;
+  width: 4px;
+  height: 4px;
+  content: "";
+  background-color: #2d628c;
+  transform: rotate(45deg);
+}
+
+.hero-transition[data-mf-hero-transition] .spinner-defs {
+  position: absolute;
+}
+
+.hero-transition[data-mf-hero-transition] .spinner {
+  position: absolute;
+  top: 57%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s linear 0s;
+  transform: translate3d(0, -50%, 0);
+}
+
+.hero-transition[data-mf-hero-transition] .spinner-inner {
+  width: 30px;
+  height: 30px;
+  animation: rotate-spinner infinite 1s linear;
+}
+
+@media (min-width: 48em) {
+  .hero-transition[data-mf-hero-transition] .spinner-inner {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.hero-transition[data-mf-hero-transition] .spinner.loading {
+  opacity: 1;
+  transition: opacity 0.3s linear 1s;
+}
+
+@keyframes rotate-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

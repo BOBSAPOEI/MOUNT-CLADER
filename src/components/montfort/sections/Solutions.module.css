@@ -156,6 +156,11 @@
   width: 5.25rem;
 }
 
+/* Icon captions wrap into even lines under the circle. */
+.item p {
+  text-wrap: balance;
+}
+
 @media (min-width: 64em) {
   .item {
     width: 7.75rem;

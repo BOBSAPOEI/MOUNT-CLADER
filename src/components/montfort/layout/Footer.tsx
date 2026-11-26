@@ -32,24 +32,17 @@ export function Footer() {
             <div key={o.name} className={styles.office}>
               <div>
                 <h2>{o.name}</h2>
-                <p className={`${styles.address} fs-body-s`}>{o.address}</p>
+                <p className={`${styles.role} fs-body-s`}>{o.role}</p>
               </div>
-              <div className={styles.contact}>
-                <a href={`tel:${o.tel}`} className="fs-body-s">
-                  P : {o.phone}
-                </a>
-                <a href={`mailto:${o.email}`} className="fs-body-s">
-                  {o.email}
-                </a>
-              </div>
+              <p className={`${styles.focus} fs-body-s`}>{o.focus}</p>
             </div>
           ))}
         </div>
         <div className={`${styles.line} dk:col-start-3 dk:col-end-24 wide:col-start-4 wide:col-end-21`} />
         <div className={`${styles.legal} dk:col-start-3 dk:col-end-10 ml:col-end-9 wide:col-start-4 wide:col-end-10`}>
-          <FooterLogo width={311} height={37} />
+          <FooterLogo width={243} height={37} />
         </div>
-        <p className={`${styles.copyright} fs-body-s dk:col-start-3 dk:col-end-24 ml:col-start-10 wide:col-start-11 wide:col-end-21`}>© 2021 | Montfort - All rights reserved</p>
+        <p className={`${styles.copyright} fs-body-s dk:col-start-3 dk:col-end-24 ml:col-start-10 wide:col-start-11 wide:col-end-21`}>© 2026 Calder Group. All rights reserved.</p>
       </div>
     </footer>
   );

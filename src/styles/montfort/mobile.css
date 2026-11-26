@@ -1,0 +1,61 @@
+/*
+ * Phone refinements (below 48em). The scenes behind the copy are bright clouds, water and lit 3D, so light
+ * copy gets a soft shadow to stay legible, and the tallest empty gaps under headings are shortened.
+ */
+@media (max-width: 47.99em) {
+  main .text-white,
+  main [data-scrub-light],
+  main[data-division] :is(h1, h2, h3, h4, p, li) {
+    text-shadow: 0 0 1.5rem rgb(10 24 38 / 40%);
+  }
+
+  /* Division heroes put the logo and headline over bright light (beams, sky, surf). */
+  main[data-division] .hero .logo-mb {
+    filter: drop-shadow(0 0 0.75rem rgb(5 15 30 / 55%));
+  }
+
+  main[data-division] h2 {
+    text-shadow: 0 0 1.5rem rgb(5 15 30 / 60%);
+  }
+
+  main .fs-h2.mb-\[8\.75rem\],
+  main h2[data-mf-trading],
+  main h2[data-mf-capital],
+  main h2[data-mf-maritime],
+  main .description[data-mf-product],
+  main .subdescription[data-mf-maritime] {
+    margin-bottom: 5rem;
+  }
+
+  /* Division pages: a tighter rhythm between services, text blocks and advantages. */
+  main .products-grid[data-mf-product] {
+    row-gap: 3.5rem;
+  }
+
+  main .category[data-mf-product],
+  main .category-heading[data-mf-maritime] {
+    margin-bottom: 4rem;
+  }
+
+  main .texts-container[data-mf-maritime] {
+    row-gap: 5rem;
+    margin-bottom: 6rem;
+  }
+
+  main[data-division] .read-more.description {
+    margin-bottom: 6rem;
+  }
+
+  main .advantages-informations[data-mf-fort-energy] {
+    gap: 4rem;
+  }
+
+  main .advantages-container[data-mf-fort-energy] {
+    row-gap: 5rem;
+  }
+
+  main h2[data-mf-fort-energy],
+  main .description[data-mf-capital-section] {
+    margin-bottom: 5rem;
+  }
+}

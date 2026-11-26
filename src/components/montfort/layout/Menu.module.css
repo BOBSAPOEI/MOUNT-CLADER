@@ -140,6 +140,13 @@
   text-wrap: nowrap;
 }
 
+/* Without the hover circle there is no slot to slide out of, so the label sits at the column start. */
+@media (max-width: 48em) {
+  .text {
+    transform: none;
+  }
+}
+
 .text::before {
   position: absolute;
   bottom: 0;

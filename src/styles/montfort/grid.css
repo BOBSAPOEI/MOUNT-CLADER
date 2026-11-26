@@ -24,6 +24,15 @@
     column-gap: 3.75rem;
   }
 
+  /*
+   * Children span the full row unless a column utility places them, so content stacks full width
+   * below 64em and a lone `tb:`/`dk:` start or end utility only moves that edge.
+   */
+  .mf-grid > *,
+  .mf-grid-bleed > * {
+    grid-column: 1 / -1;
+  }
+
   @media (min-width: 64em) {
     .mf-grid-bleed {
       grid-template-columns: repeat(24, minmax(0, 1fr));

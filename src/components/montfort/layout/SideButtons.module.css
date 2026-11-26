@@ -4,6 +4,23 @@
   z-index: 5;
   width: 100%;
   pointer-events: none;
+  transition: opacity 0.5s linear;
+}
+
+.faded {
+  opacity: 0;
+}
+
+/* Phones scroll to the top natively (tap the status bar) and have the sound toggle in the header; floating
+   buttons only covered the copy. */
+@media (max-width: 47.99em) {
+  .container {
+    display: none;
+  }
+}
+
+.faded .button {
+  pointer-events: none;
 }
 
 @media (min-width: 48em) {
@@ -61,6 +78,7 @@
     border-color 0.4s linear;
 }
 
+/* White ink over dark backdrops. */
 .container[data-theme="light"] .button {
   color: #fff;
 }

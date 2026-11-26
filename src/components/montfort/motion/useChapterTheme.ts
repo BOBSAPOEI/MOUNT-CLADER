@@ -30,9 +30,11 @@ export function useThemeAt(probe: (vh: number) => number): Theme {
     update();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
+    window.addEventListener("mf:swap", schedule);
     return () => {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
+      window.removeEventListener("mf:swap", schedule);
       if (raf) cancelAnimationFrame(raf);
     };
   }, [probe]);

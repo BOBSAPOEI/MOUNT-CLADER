@@ -1,6 +1,4 @@
-import { SiteChrome } from "@/components/montfort/layout/SiteChrome";
 import { Footer } from "@/components/montfort/layout/Footer";
-import { Scene } from "@/components/montfort/scene/Scene";
 import { Equality } from "@/components/montfort/sections/Equality";
 import { GlobalConnectivity } from "@/components/montfort/sections/GlobalConnectivity";
 import { Hero } from "@/components/montfort/sections/Hero";
@@ -13,16 +11,14 @@ import { WhoWeAre } from "@/components/montfort/sections/WhoWeAre";
 export default function Home() {
   return (
     <>
-      <Scene />
-      <SiteChrome />
-      <main>
-        <div id="TopChapters">
+      <main data-scene="Homepage">
+        <div id="TopChapters" data-chapter="TopChapters" data-chapter-first="true">
           <Hero />
           <WhoWeAre />
           <WhatWeDo />
           <GlobalConnectivity />
         </div>
-        <div id="Sustainability" data-chapter-theme="light">
+        <div id="Sustainability" data-chapter="Sustainability" data-chapter-theme="light">
           <Sustainability />
           <Solutions />
           <Equality />

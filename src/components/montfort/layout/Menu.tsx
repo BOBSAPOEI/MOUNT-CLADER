@@ -3,7 +3,7 @@ import { ArrowIcon } from "../ui/icons";
 import styles from "./Menu.module.css";
 
 /** Full-screen navigation overlay opened from the header's menu button. */
-export function Menu({ open, onNavigate }: { open: boolean; onNavigate: () => void }) {
+export function Menu({ open, active = 0, onNavigate }: { open: boolean; active?: number; onNavigate: () => void }) {
   return (
     <div className={`${styles.menu} ${open ? styles.active : ""}`} aria-hidden={!open}>
       <div className={`mf-grid ${styles.gridNav}`}>
@@ -11,7 +11,7 @@ export function Menu({ open, onNavigate }: { open: boolean; onNavigate: () => vo
           <ul>
             {NAV.map((n, i) => (
               <li key={n.href}>
-                <a href={n.href} className={`${styles.navLink} ${i === 0 ? styles.current : ""}`} onClick={onNavigate} tabIndex={open ? 0 : -1} data-cursor="clickable">
+                <a href={n.href} className={`${styles.navLink} ${i === active ? styles.current : ""}`} onClick={onNavigate} tabIndex={open ? 0 : -1} data-cursor="clickable">
                   <div className={styles.circle}>
                     <ArrowIcon />
                   </div>

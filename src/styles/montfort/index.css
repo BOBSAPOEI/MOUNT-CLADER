@@ -2,6 +2,7 @@
 @import "./tokens.css";
 @import "./typography.css";
 @import "./grid.css";
+@import "./mobile.css";
 
 @layer base {
   html {
@@ -45,6 +46,7 @@
   p {
     padding: 0;
     margin: 0;
+    text-wrap: pretty;
   }
 
   a {
